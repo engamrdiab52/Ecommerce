@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "717444778253",
+    "project_id": "ecommerce-41413",
+    "storage_bucket": "ecommerce-41413.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717444778253:android:3bf191d9e8c9cd03d34844",
+        "android_client_info": {
+          "package_name": "com.example.bags"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717444778253-na8tsnf6d1gt5687635k7ljobt0tl3gi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7FSdAKSvFclL90-Mq65SHGUFrCnR1UBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717444778253-na8tsnf6d1gt5687635k7ljobt0tl3gi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
