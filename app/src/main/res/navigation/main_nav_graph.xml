@@ -3,17 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/nested_graph_home">
 
     <fragment
         android:id="@+id/categories"
         android:name="com.example.bags.Categories"
         android:label="fragment_categories"
         tools:layout="@layout/fragment_categories" />
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.bags.presentation.home.HomeFragment"
-        android:label="HomeFragment" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.bags.presentation.login.LoginFragment"
@@ -26,4 +22,26 @@
         android:id="@+id/signupFragment"
         android:name="com.example.bags.presentation.signup.SignupFragment"
         android:label="SignupFragment" />
+
+    <navigation android:id="@+id/nested_graph_home"
+        app:startDestination="@id/homeFragment">
+        <fragment
+            android:id="@+id/homeFragment"
+            android:name="com.example.bags.presentation.home.HomeFragment"
+            android:label="HomeFragment">
+            <action
+                android:id="@+id/action_homeFragment_to_detailsFragment"
+                app:destination="@id/detailsFragment"
+                app:popUpTo="@id/homeFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/detailsFragment"
+            android:name="com.example.bags.presentation.details.DetailsFragment"
+            android:label="DetailsFragment">
+            <action
+                android:id="@+id/action_detailsFragment_to_homeFragment2"
+                app:destination="@id/homeFragment"
+                app:popUpTo="@id/detailsFragment" />
+        </fragment>
+    </navigation>
 </navigation>
