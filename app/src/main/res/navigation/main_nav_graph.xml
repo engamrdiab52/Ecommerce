@@ -3,11 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/categories">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/categories"
         android:name="com.example.bags.Categories"
         android:label="fragment_categories"
         tools:layout="@layout/fragment_categories" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.bags.presentation.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.bags.presentation.login.LoginFragment"
+        android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/newCredentialsFragment"
+        android:name="com.example.bags.presentation.newCreadintials.NewCredentialsFragment"
+        android:label="NewCredentialsFragment" />
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.example.bags.presentation.signup.SignupFragment"
+        android:label="SignupFragment" />
 </navigation>
