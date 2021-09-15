@@ -21,6 +21,9 @@ class HomeFragment : Fragment() {
       binding.button.setOnClickListener{
           findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
       }
+        binding.btnToLogin.setOnClickListener { 
+            findNavController().navigate(R.id.action_global_nested_graph_login)
+        }
         // Inflate the layout for this fragment
         return binding.root
     }
