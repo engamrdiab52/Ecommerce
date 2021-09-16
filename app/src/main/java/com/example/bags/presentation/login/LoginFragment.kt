@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import com.example.bags.MainActivity
 import com.example.bags.MainActivity.Companion.TAG
 import com.example.bags.R
 import com.example.bags.databinding.FragmentLoginBinding
@@ -23,6 +24,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+
         binding.buttonLogin.setOnClickListener {
             validateEmailField()
             validatePasswordField()
@@ -67,5 +69,12 @@ class LoginFragment : Fragment() {
             binding.textLayoutLoginEmail.error = null
         }.check()
     }
-
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setDrawerLocked()
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as MainActivity).setDrawerUnlocked()
+    }
 }
