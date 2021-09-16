@@ -19,9 +19,9 @@ import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
 
 class NewCredentialsFragment : Fragment() {
     private lateinit var binding: FragmentNewCredentialsBinding
-    var validPassword: Boolean = false
-    var validConfirmPassword: Boolean = false
-    var errorMessage: String = "Can't be empty!"
+    private var validPassword: Boolean = false
+    private var validConfirmPassword: Boolean = false
+    private var errorMessage: String? = "Can't be empty!"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,12 +39,14 @@ class NewCredentialsFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 s.toString().validator().nonEmpty().atleastOneNumber().atleastOneSpecialCharacters()
                     .minLength(6).addErrorCallback {
-                        errorMessage =it
+                        errorMessage = it
                         binding.textLayoutCredentialsPassword.helperText = it
                         validPassword = false
                         Log.d(TAG, it)
                     }.addSuccessCallback {
+                        binding.textLayoutCredentialsPassword.helperText = null
                         validPassword = true
+                        errorMessage = null
                         Log.d(TAG, "SUCCESS")
                     }.check()
             }
@@ -52,9 +54,10 @@ class NewCredentialsFragment : Fragment() {
         })
 
         binding.btnNewCredentialsUpdate.setOnClickListener {
+            binding.textLayoutCredentialsPassword.error = errorMessage
             validateConfirmPasswordField()
 
-            if ( validConfirmPassword && validPassword) {
+            if (validConfirmPassword && validPassword) {
                 findNavController().navigate(R.id.action_newCredentialsFragment_to_loginFragment)
             } else {
                 Toast.makeText(requireContext(), "** INVALID CREDENTIALS **", Toast.LENGTH_LONG)
@@ -87,12 +90,12 @@ class NewCredentialsFragment : Fragment() {
                         "Passwords do not match"
                     validConfirmPassword = false
                 } else {
-                    if(!validPassword || str1.isEmpty()){
+                    if (!validPassword || str1.isEmpty()) {
                         binding.textLayoutCredentialsPassword.error = errorMessage
                         binding.textLayoutCredentialsConfirmPassword.error =
                             "Passwords are matched but not correct password"
                         validConfirmPassword = false
-                    }else{
+                    } else {
                         binding.textLayoutCredentialsConfirmPassword.helperText =
                             "Passwords are matched"
                         validConfirmPassword = true
