@@ -28,10 +28,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_global_nested_graph_login)
         }
         preferenceHelper = PreferenceManager(requireActivity().applicationContext)
-        preferenceHelper.setUserLoggedIn(false)
+      /*  preferenceHelper.setUserLoggedIn(false)
         if ( preferenceHelper.getUserLoggedIn()){
             findNavController().navigate(R.id.action_global_nested_graph_login)
-        }
+        }*/
         // Inflate the layout for this fragment
         return binding.root
     }

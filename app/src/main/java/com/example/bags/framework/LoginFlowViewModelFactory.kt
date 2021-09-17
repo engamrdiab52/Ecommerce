@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 
 object LoginFlowViewModelFactory : ViewModelProvider.Factory {
     lateinit var application: Application
-    lateinit var dependencies: Interactions
+     lateinit var dependencies: Interactions
 
     fun inject(application: Application, dependencies: Interactions) {
         LoginFlowViewModelFactory.application = application

@@ -11,15 +11,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.example.bags.MainActivity
 import com.example.bags.MainActivity.Companion.TAG
 import com.example.bags.R
 import com.example.bags.databinding.FragmentSignupBinding
+import com.example.bags.framework.LoginFlowViewModelFactory
+import com.example.bags.presentation.LoginFlowViewModel
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
 
 class SignupFragment : Fragment() {
     private lateinit var binding: FragmentSignupBinding
-
+    private val viewModel: LoginFlowViewModel by navGraphViewModels(R.id.nested_graph_login) {
+        LoginFlowViewModelFactory
+    }
     private var validPassword: Boolean = false
     private var validEmail: Boolean = false
     private var validConfirmPassword: Boolean = false
@@ -69,6 +74,7 @@ class SignupFragment : Fragment() {
                 val password = binding.edtTxtSignupPassword.text.toString()
                 val email = binding.edtTxtSignupEmail.text.toString()
                 Toast.makeText(requireContext(), "$email + $password", Toast.LENGTH_LONG).show()
+               viewModel.createUser(email, password)
                 findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
             } else {
                 //may use singleLiveEvent

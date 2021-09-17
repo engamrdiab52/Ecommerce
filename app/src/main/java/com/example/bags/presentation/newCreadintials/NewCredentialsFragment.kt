@@ -11,13 +11,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.example.bags.MainActivity
 import com.example.bags.MainActivity.Companion.TAG
 import com.example.bags.R
 import com.example.bags.databinding.FragmentNewCredentialsBinding
+import com.example.bags.framework.LoginFlowViewModelFactory
+import com.example.bags.presentation.LoginFlowViewModel
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
 
 class NewCredentialsFragment : Fragment() {
+    private val viewModel: LoginFlowViewModel by navGraphViewModels(R.id.nested_graph_login) {
+        LoginFlowViewModelFactory
+    }
     private lateinit var binding: FragmentNewCredentialsBinding
     private var validPassword: Boolean = false
     private var validConfirmPassword: Boolean = false
@@ -58,6 +64,7 @@ class NewCredentialsFragment : Fragment() {
             validateConfirmPasswordField()
 
             if (validConfirmPassword && validPassword) {
+             //   viewModel.resetPassword(email)
                 findNavController().navigate(R.id.action_newCredentialsFragment_to_loginFragment)
             } else {
                 Toast.makeText(requireContext(), "** INVALID CREDENTIALS **", Toast.LENGTH_LONG)
