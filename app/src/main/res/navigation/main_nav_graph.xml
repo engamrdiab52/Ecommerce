@@ -44,28 +44,33 @@
             android:name="com.example.bags.presentation.login.LoginFragment"
             android:label="Login"
             tools:layout="@layout/fragment_login">
-            <action
+          <!--  <action
                 android:id="@+id/action_loginFragment_to_newCredentialsFragment"
                 app:destination="@id/newCredentialsFragment"
                 app:launchSingleTop="true"
-                app:popUpTo="@id/loginFragment" />
+                app:popUpTo="@id/loginFragment" />-->
             <action
                 android:id="@+id/action_loginFragment_to_signupFragment"
                 app:destination="@id/signupFragment"
                 app:launchSingleTop="true"
                 app:popUpTo="@id/loginFragment" />
+            <action
+                android:id="@+id/action_loginFragment_to_resetPasswordFragment"
+                app:destination="@id/resetPasswordFragment"
+                app:launchSingleTop="true"
+                app:popUpTo="@id/loginFragment"/>
         </fragment>
         <fragment
             android:id="@+id/newCredentialsFragment"
             android:name="com.example.bags.presentation.newCreadintials.NewCredentialsFragment"
             android:label="NewCredentials"
             tools:layout="@layout/fragment_new_credentials">
-            <action
+        <!--    <action
                 android:id="@+id/action_newCredentialsFragment_to_loginFragment"
                 app:destination="@id/loginFragment"
                 app:launchSingleTop="true"
                 app:popUpTo="@id/newCredentialsFragment"
-                app:popUpToInclusive="true" />
+                app:popUpToInclusive="true" />-->
         </fragment>
         <fragment
             android:id="@+id/signupFragment"
@@ -85,6 +90,18 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/nested_graph_login"
             app:popUpToInclusive="true" />
+        <fragment
+            android:id="@+id/resetPasswordFragment"
+            android:name="com.example.bags.presentation.newCreadintials.ResetPasswordFragment"
+            android:label="ResetPasswordFragment"
+            tools:layout="@layout/fragment_reset_password">
+            <action
+                android:id="@+id/action_resetPasswordFragment_to_loginFragment"
+                app:destination="@id/loginFragment"
+                app:launchSingleTop="true"
+                app:popUpTo="@id/resetPasswordFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
     </navigation>
     <fragment
         android:id="@+id/cartFragment"

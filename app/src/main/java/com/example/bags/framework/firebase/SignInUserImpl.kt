@@ -8,9 +8,10 @@ import kotlinx.coroutines.tasks.await
 
 class SignInUserImpl(private val mAuth: FirebaseAuth) : ISignInUser {
     override suspend fun signInUser(email: String, password: String) {
+
         try {
             val authResult = mAuth.signInWithEmailAndPassword(email, password).await()
-            Log.d(TAG, authResult.toString())
+            Log.d(TAG, mAuth.currentUser.toString())
         } catch (ex: Exception) {
             Log.d(TAG, ex.message.toString())
         }

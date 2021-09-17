@@ -16,6 +16,7 @@ import com.example.bags.R
 import com.example.bags.databinding.FragmentLoginBinding
 import com.example.bags.framework.LoginFlowViewModelFactory
 import com.example.bags.presentation.LoginFlowViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
 
 class LoginFragment : Fragment() {
@@ -46,12 +47,13 @@ class LoginFragment : Fragment() {
             }
         }
         binding.tvLoginForgetPasswordClickable.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_newCredentialsFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment)
         }
         binding.tvLoginSignupClickable.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
         }
         // Inflate the layout for this fragment
+        Log.d(TAG, FirebaseAuth.getInstance().currentUser?.email.toString())
         return binding.root
     }
 

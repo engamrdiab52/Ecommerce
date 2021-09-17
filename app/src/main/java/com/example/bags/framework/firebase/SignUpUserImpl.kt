@@ -10,7 +10,9 @@ class SignUpUserImpl(private val mAuth: FirebaseAuth) : ISignupUser {
     override suspend fun signupUser(email: String, password: String) {
         try {
             val authResult = mAuth.createUserWithEmailAndPassword(email, password).await()
+            mAuth.currentUser?.sendEmailVerification()?.await()
             Log.d(TAG, authResult.toString())
+            Log.d(TAG, "email sent")
         } catch (ex: Exception) {
             Log.d(TAG, ex.message.toString())
         }

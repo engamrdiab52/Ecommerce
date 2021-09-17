@@ -2,15 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nested_graph_home"
-        android:title="@string/home"
-        android:icon="@drawable/ic_classroom"/>
+        android:icon="@drawable/ic_classroom"
+        android:title="@string/home" />
     <item
         android:id="@+id/cartFragment"
-        android:title="@string/cart"
-        android:icon="@drawable/ic_scheduel"/>
+        android:icon="@drawable/ic_scheduel"
+        android:title="@string/cart" />
     <item
         android:id="@+id/searchFragment"
-        android:title="@string/search"
-        android:icon="@drawable/ic_explore" />
+        android:icon="@drawable/ic_explore"
+        android:title="@string/search" />
+    <item
+        android:id="@+id/deleteUser"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/delete_account" />
+
 
 </menu>

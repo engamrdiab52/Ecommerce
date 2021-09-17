@@ -65,7 +65,7 @@ class NewCredentialsFragment : Fragment() {
 
             if (validConfirmPassword && validPassword) {
              //   viewModel.resetPassword(email)
-                findNavController().navigate(R.id.action_newCredentialsFragment_to_loginFragment)
+               // findNavController().navigate(R.id.action_newCredentialsFragment_to_loginFragment)
             } else {
                 Toast.makeText(requireContext(), "** INVALID CREDENTIALS **", Toast.LENGTH_LONG)
                     .show()

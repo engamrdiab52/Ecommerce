@@ -54,6 +54,18 @@ class MainActivity : AppCompatActivity(), myDrawerController {
         }
         bottomNavigationView.setupWithNavController(navController)
         navigationView.setupWithNavController(navController)
+        navigationView.setNavigationItemSelectedListener {
+           when (it.itemId){
+               R.id.deleteUser ->{
+                   FirebaseAuth.getInstance().currentUser?.delete()
+                   Log.d(TAG, "usere delete")
+                   true
+               } 
+               else -> true
+           }
+        }
+        // if (it.itemId== R.id.deleteUser)FirebaseAuth.getInstance().currentUser.delete()
+
         //to hide up button when this fragments selected
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -67,11 +79,12 @@ class MainActivity : AppCompatActivity(), myDrawerController {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_Logout -> {
                 Log.d(TAG, "Selected :  $item")
+                FirebaseAuth.getInstance().signOut()
+                Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -27,6 +27,7 @@
     <string name="home">Home</string>
     <string name="settings">settings</string>
     <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
 
 
 </resources>
