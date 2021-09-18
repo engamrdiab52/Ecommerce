@@ -8,17 +8,20 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await
 
 class SendEmailVerificationImpl(private val mAuth: FirebaseAuth): ISendEmailVerification {
-    override suspend fun sendEmailVerification() {
-        try {
+    override suspend fun sendEmailVerification():Boolean {
+      return  try {
             val user = mAuth.currentUser
             if (user != null) {
             user.sendEmailVerification().await()
-                Log.d(TAG, "Email sent")
+                Log.d(TAG, "SendEmailVerificationImpl :  Email sent")
+                true
             } else {
-                Log.d(TAG, "NO users signed in")
+                Log.d(TAG, "SendEmailVerificationImpl  : NO users signed in")
+                false
             }
         } catch (ex: Exception) {
             Log.d(TAG, ex.message.toString())
+          false
         }
     }
 

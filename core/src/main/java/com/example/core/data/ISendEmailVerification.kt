@@ -1,5 +1,5 @@
 package com.example.core.data
 
 interface ISendEmailVerification {
-    suspend fun sendEmailVerification()
+    suspend fun sendEmailVerification():Boolean
 }

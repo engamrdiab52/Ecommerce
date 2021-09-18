@@ -26,7 +26,9 @@ class BagsApplication : Application() {
                 SignOutUser(RepositorySignOutUser(SignOutUserImpl(mAuth))),
                 VerifyUserEmail(RepositoryVerifyEmail(VerifyUserEmailImpl(mAuth))),
                 SignInUser(RepositorySignInUser(SignInUserImpl(mAuth)))
+
             )
         )
     }
 }
+// UserLoggedIn(RepositorySignUpUser(SignUpUserImpl(mAuth)))

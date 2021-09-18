@@ -15,6 +15,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.bags.databinding.ActivityMainBinding
+import com.example.bags.framework.PreferenceManager
+import com.example.core.data.IPreferenceHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -36,11 +38,13 @@ class MainActivity : AppCompatActivity(), myDrawerController {
     private lateinit var toolbar: Toolbar
     private lateinit var fab: FloatingActionButton
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var preferenceHelper:IPreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        preferenceHelper = PreferenceManager(this.applicationContext)
         drawerLayout = binding.drawerLayout
         navigationView = binding.navigationView
         toolbar = binding.appBarMain.toolbar
@@ -58,6 +62,7 @@ class MainActivity : AppCompatActivity(), myDrawerController {
            when (it.itemId){
                R.id.deleteUser ->{
                    FirebaseAuth.getInstance().currentUser?.delete()
+                   preferenceHelper.setUserLoggedIn(false)
                    Log.d(TAG, "usere delete")
                    true
                } 
@@ -84,6 +89,7 @@ class MainActivity : AppCompatActivity(), myDrawerController {
             R.id.action_Logout -> {
                 Log.d(TAG, "Selected :  $item")
                 FirebaseAuth.getInstance().signOut()
+                preferenceHelper.setUserLoggedIn(false)
                 Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
                 true
             }

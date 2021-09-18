@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.bags.MainActivity
@@ -15,7 +16,9 @@ import com.example.bags.MainActivity.Companion.TAG
 import com.example.bags.R
 import com.example.bags.databinding.FragmentLoginBinding
 import com.example.bags.framework.LoginFlowViewModelFactory
+import com.example.bags.framework.PreferenceManager
 import com.example.bags.presentation.LoginFlowViewModel
+import com.example.core.data.IPreferenceHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
 
@@ -26,11 +29,22 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private var validPassword: Boolean = false
     private var validEmail: Boolean = false
+    private lateinit var preferenceHelper: IPreferenceHelper
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        preferenceHelper = PreferenceManager(requireActivity().applicationContext)
+        viewModel.userSignedIn.observe(viewLifecycleOwner, Observer{
+            if (it == true){
+                preferenceHelper.setUserLoggedIn(true)
+                findNavController().navigate(R.id.action_global_nested_graph_home)
+            }else{
+                preferenceHelper.setUserLoggedIn(false)
+            }
+
+        })
 
         binding.buttonLogin.setOnClickListener {
             validateEmailField()

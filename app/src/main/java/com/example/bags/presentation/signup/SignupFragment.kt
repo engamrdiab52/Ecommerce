@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.bags.MainActivity
@@ -36,6 +37,28 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup, container, false)
+
+        viewModel.emailVerificationSent.observe(viewLifecycleOwner, Observer{
+          if (it == true){
+              Toast.makeText(requireContext(), "Email sent successfully",Toast.LENGTH_SHORT).show()
+              Log.d(TAG,"66666666 signup fragment" +it.toString())
+              findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+          }else{
+              Toast.makeText(requireContext(), "Sending was not completed",Toast.LENGTH_SHORT).show()
+              Log.d(TAG,"22222222 signup fragment" +it.toString())
+          }
+        })
+        viewModel.userCreated.observe(viewLifecycleOwner,Observer{
+            if (it == true){
+                viewModel.sendVerificationEmail()
+                Log.d(TAG,"trying sending an email" )
+            }else{
+                Log.d(TAG,"The account has not been created" )
+                Toast.makeText(requireContext(), "The account has not been created",Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
         binding.txtViewSignupSignin.setOnClickListener {
             findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
         }
@@ -75,7 +98,7 @@ class SignupFragment : Fragment() {
                 val email = binding.edtTxtSignupEmail.text.toString()
                 Toast.makeText(requireContext(), "$email + $password", Toast.LENGTH_LONG).show()
                viewModel.createUser(email, password)
-                findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+
             } else {
                 //may use singleLiveEvent
                 Toast.makeText(requireContext(), "** INVALID CREDENTIALS **", Toast.LENGTH_LONG)

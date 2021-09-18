@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.bags.MainActivity
+import com.example.bags.MainActivity.Companion.TAG
 import com.example.bags.R
 import com.example.bags.databinding.FragmentResetPasswordBinding
 import com.example.bags.framework.LoginFlowViewModelFactory
@@ -29,12 +30,16 @@ class ResetPasswordFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_reset_password, container, false)
+       viewModel.passwordChanged.observe(viewLifecycleOwner, {
+           Toast.makeText(requireContext(), "Email sent successfully",Toast.LENGTH_SHORT).show()
+           Log.d(TAG,"66666666" +it.toString())
+           findNavController().navigate(R.id.action_resetPasswordFragment_to_loginFragment)
+       })
         binding.btnSendVerificationEmail.setOnClickListener {
             validateEmailField()
             if (validEmail ){
                 val email = binding.editTextEmailResetPassword.text.toString()
                 viewModel.resetPassword(email)
-                findNavController().navigate(R.id.action_resetPasswordFragment_to_loginFragment)
             }else{
                 Toast.makeText(requireContext(), "** INVALID CREDENTIALS **", Toast.LENGTH_LONG)
                     .show()

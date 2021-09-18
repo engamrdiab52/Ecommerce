@@ -8,5 +8,7 @@ data class Interactions(
     val signUpUser: SignUpUser,
     val signOutUser: SignOutUser,
     val verifyUserEmail: VerifyUserEmail,
-    val signInUser: SignInUser
+    val signInUser: SignInUser,
+
 )
+//val userLoggedIn: UserLoggedIn
