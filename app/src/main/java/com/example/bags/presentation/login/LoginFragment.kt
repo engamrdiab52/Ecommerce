@@ -36,12 +36,23 @@ class LoginFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         preferenceHelper = PreferenceManager(requireActivity().applicationContext)
-        viewModel.userSignedIn.observe(viewLifecycleOwner, Observer{
-            if (it == true){
+        viewModel.userSignedIn.observe(viewLifecycleOwner, {
+            if (it == true) {
+                Log.d(TAG, "userSigned in but we still dont know if he verified email")
+                viewModel.isEmailVerified()
+            } else {
+                preferenceHelper.setUserLoggedIn(false)
+            }
+
+        })
+        viewModel.emailVerified.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
                 preferenceHelper.setUserLoggedIn(true)
                 findNavController().navigate(R.id.action_global_nested_graph_home)
-            }else{
-                preferenceHelper.setUserLoggedIn(false)
+            } else {
+                Toast.makeText(requireContext(), "Please Verify your Email", Toast.LENGTH_SHORT)
+                    .show()
+                Log.d(TAG, "Please Verify your Email")
             }
 
         })

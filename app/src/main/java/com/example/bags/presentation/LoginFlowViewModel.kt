@@ -61,10 +61,10 @@ class LoginFlowViewModel(application: Application, dependencies: Interactions) :
         viewModelScope.launch(Dispatchers.IO){
             _emailVerificationSent.postValue(dependencies.sendEmailVerification())
         }
-        fun isEmailVerified(){
-            viewModelScope.launch(Dispatchers.IO){
-                _emailVerified.postValue(dependencies.)
-            }
+        }
+    fun isEmailVerified(){
+        viewModelScope.launch(Dispatchers.IO){
+            _emailVerified.postValue(dependencies.emailVerifiedState())
         }
     }
 

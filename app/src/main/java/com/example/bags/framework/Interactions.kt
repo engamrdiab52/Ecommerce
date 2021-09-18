@@ -9,6 +9,6 @@ data class Interactions(
     val signOutUser: SignOutUser,
     val verifyUserEmail: VerifyUserEmail,
     val signInUser: SignInUser,
-
+    val emailVerifiedState: EmailVerifiedState
 )
 //val userLoggedIn: UserLoggedIn

@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -22,6 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.tasks.await
 
 class MainActivity : AppCompatActivity(), myDrawerController {
     companion object {
@@ -38,7 +41,7 @@ class MainActivity : AppCompatActivity(), myDrawerController {
     private lateinit var toolbar: Toolbar
     private lateinit var fab: FloatingActionButton
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var preferenceHelper:IPreferenceHelper
+    private lateinit var preferenceHelper: IPreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,15 +62,20 @@ class MainActivity : AppCompatActivity(), myDrawerController {
         bottomNavigationView.setupWithNavController(navController)
         navigationView.setupWithNavController(navController)
         navigationView.setNavigationItemSelectedListener {
-           when (it.itemId){
-               R.id.deleteUser ->{
-                   FirebaseAuth.getInstance().currentUser?.delete()
-                   preferenceHelper.setUserLoggedIn(false)
-                   Log.d(TAG, "usere delete")
-                   true
-               } 
-               else -> true
-           }
+            when (it.itemId) {
+                R.id.deleteUser -> {
+                    if (FirebaseAuth.getInstance().currentUser != null) {
+                        FirebaseAuth.getInstance().currentUser?.delete()
+                        preferenceHelper.setUserLoggedIn(false)
+                        navController.navigate(R.id.action_global_nested_graph_login)
+                        Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
+                        true
+                    } else {
+                        true
+                    }
+                }
+                else -> true
+            }
         }
         // if (it.itemId== R.id.deleteUser)FirebaseAuth.getInstance().currentUser.delete()
 
@@ -84,14 +92,23 @@ class MainActivity : AppCompatActivity(), myDrawerController {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_Logout -> {
                 Log.d(TAG, "Selected :  $item")
-                FirebaseAuth.getInstance().signOut()
-                preferenceHelper.setUserLoggedIn(false)
-                Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
-                true
+                try {
+                    run {
+                        FirebaseAuth.getInstance().signOut()
+                        preferenceHelper.setUserLoggedIn(false)
+                        navController.navigate(R.id.action_global_nested_graph_login)
+                        Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
+                        true
+                    }
+                } catch (e: Exception) {
+                    Log.d(TAG, " error in mainActivity  " + e.message.toString())
+                    super.onOptionsItemSelected(item)
+                }
             }
             else -> super.onOptionsItemSelected(item)
         }
