@@ -25,12 +25,6 @@ class HomeFragment : Fragment() {
         if (! preferenceHelper.getUserLoggedIn()){
             findNavController().navigate(R.id.action_global_nested_graph_login)
         }
-        binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
-        }
-        binding.btnToLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_global_nested_graph_login)
-        }
         preferenceHelper = PreferenceManager(requireActivity().applicationContext)
       /*  preferenceHelper.setUserLoggedIn(false)
         if ( preferenceHelper.getUserLoggedIn()){
