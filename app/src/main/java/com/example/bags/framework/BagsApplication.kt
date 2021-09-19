@@ -14,7 +14,7 @@ class BagsApplication : Application() {
         val mAuth = FirebaseAuth.getInstance()
         LoginFlowViewModelFactory.inject(
             this, Interactions(
-                ResetUserPassword(RepositoryResetPassword(ResetPasswordImpl(mAuth))),
+                ResetUserPassword(RepositoryResetPassword(ResetPasswordImpl(mAuth,this.applicationContext))),
                 SendEmailVerification(
                     RepositorySendEmailVerification(
                         SendEmailVerificationImpl(

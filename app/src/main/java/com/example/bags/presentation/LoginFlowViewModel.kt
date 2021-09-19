@@ -6,24 +6,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.bags.framework.BagsViewModel
 import com.example.bags.framework.Interactions
+import com.example.bags.framework.utilis.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginFlowViewModel(application: Application, dependencies: Interactions) :
     BagsViewModel(application, dependencies) {
-    private val _passwordChanged = MutableLiveData<Boolean>()
+    private val _passwordChanged = SingleLiveEvent<Boolean>()
     val passwordChanged: LiveData<Boolean> get() = _passwordChanged
 
-    private val _emailVerificationSent = MutableLiveData<Boolean>()
+    private val _emailVerificationSent = SingleLiveEvent<Boolean>()
     val emailVerificationSent: LiveData<Boolean> get() = _emailVerificationSent
 
-    private val _userCreated = MutableLiveData<Boolean>()
+    private val _userCreated = SingleLiveEvent<Boolean>()
     val userCreated: LiveData<Boolean> get() = _userCreated
 
-    private val _userSignedIn = MutableLiveData<Boolean>()
+    private val _userSignedIn = SingleLiveEvent<Boolean>()
     val userSignedIn: LiveData<Boolean> get() = _userSignedIn
 
-    private val _emailVerified = MutableLiveData<Boolean>()
+    private val _emailVerified = SingleLiveEvent<Boolean>()
     val emailVerified: LiveData<Boolean> get() = _emailVerified
     
     fun signIn(email: String, password: String) {
