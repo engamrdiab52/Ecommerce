@@ -18,6 +18,7 @@ import com.example.bags.MainActivity.Companion.TAG
 import com.example.bags.R
 import com.example.bags.databinding.FragmentSignupBinding
 import com.example.bags.framework.LoginFlowViewModelFactory
+import com.example.bags.framework.utilis.checkInternetConnection
 import com.example.bags.presentation.LoginFlowViewModel
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
 
@@ -38,23 +39,29 @@ class SignupFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup, container, false)
 
-        viewModel.emailVerificationSent.observe(viewLifecycleOwner, Observer{
-          if (it == true){
-              Toast.makeText(requireContext(), "Email sent successfully",Toast.LENGTH_SHORT).show()
-              Log.d(TAG,"66666666 signup fragment" +it.toString())
-              findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
-          }else{
-              Toast.makeText(requireContext(), "Sending was not completed",Toast.LENGTH_SHORT).show()
-              Log.d(TAG,"22222222 signup fragment" +it.toString())
-          }
+        viewModel.emailVerificationSent.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                Toast.makeText(requireContext(), "Email sent successfully", Toast.LENGTH_SHORT)
+                    .show()
+                Log.d(TAG, "66666666 signup fragment" + it.toString())
+                findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+            } else {
+                Toast.makeText(requireContext(), "Sending was not completed", Toast.LENGTH_SHORT)
+                    .show()
+                Log.d(TAG, "22222222 signup fragment" + it.toString())
+            }
         })
-        viewModel.userCreated.observe(viewLifecycleOwner,Observer{
-            if (it == true){
+        viewModel.userCreated.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
                 viewModel.sendVerificationEmail()
-                Log.d(TAG,"trying sending an email" )
-            }else{
-                Log.d(TAG,"The account has not been created" )
-                Toast.makeText(requireContext(), "The account has not been created",Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "trying sending an email")
+            } else {
+                Log.d(TAG, "The account has not been created")
+                Toast.makeText(
+                    requireContext(),
+                    "The account has not been created",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         })
@@ -97,8 +104,15 @@ class SignupFragment : Fragment() {
                 val password = binding.edtTxtSignupPassword.text.toString()
                 val email = binding.edtTxtSignupEmail.text.toString()
                 Toast.makeText(requireContext(), "$email + $password", Toast.LENGTH_LONG).show()
-               viewModel.createUser(email, password)
-
+                if (checkInternetConnection(requireContext())) {
+                    viewModel.createUser(email, password)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "No Network please turn on",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             } else {
                 //may use singleLiveEvent
                 Toast.makeText(requireContext(), "** INVALID CREDENTIALS **", Toast.LENGTH_LONG)
@@ -157,10 +171,12 @@ class SignupFragment : Fragment() {
                 }
             }.check()
     }
+
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).setDrawerLocked()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         (activity as MainActivity).setDrawerUnlocked()

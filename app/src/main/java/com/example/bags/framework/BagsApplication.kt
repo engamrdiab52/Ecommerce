@@ -26,7 +26,7 @@ class BagsApplication : Application() {
                 SignOutUser(RepositorySignOutUser(SignOutUserImpl(mAuth))),
                 VerifyUserEmail(RepositoryVerifyEmail(VerifyUserEmailImpl(mAuth))),
                 SignInUser(RepositorySignInUser(SignInUserImpl(mAuth))),
-                EmailVerifiedState(RepositoryEmailVerifiedState(EmailVerifiesStateImpl(mAuth)))
+                EmailVerifiedState(RepositoryEmailVerifiedState(EmailVerifiesStateImpl(mAuth, this.applicationContext)))
             )
         )
     }

@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -18,6 +19,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.bags.databinding.ActivityMainBinding
 import com.example.bags.framework.PreferenceManager
+import com.example.bags.framework.utilis.checkInternetConnection
 import com.example.core.data.IPreferenceHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -64,13 +66,27 @@ class MainActivity : AppCompatActivity(), myDrawerController {
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.deleteUser -> {
+
+                   
+                    
+                    
                     if (FirebaseAuth.getInstance().currentUser != null) {
-                        FirebaseAuth.getInstance().currentUser?.delete()
-                        preferenceHelper.setUserLoggedIn(false)
-                        navController.navigate(R.id.action_global_nested_graph_login)
-                        Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
-                        true
+                        if (checkInternetConnection(this)) {
+                            FirebaseAuth.getInstance().currentUser?.delete()
+                            preferenceHelper.setUserLoggedIn(false)
+                            navController.navigate(R.id.action_global_nested_graph_login)
+                            Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
+                            true
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "No Network please turn on",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            true
+                        }
                     } else {
+                        Log.d(TAG,"MainActivity : something error")
                         true
                     }
                 }
@@ -94,24 +110,35 @@ class MainActivity : AppCompatActivity(), myDrawerController {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_Logout -> {
-                Log.d(TAG, "Selected :  $item")
-                try {
-                    run {
-                        FirebaseAuth.getInstance().signOut()
-                        preferenceHelper.setUserLoggedIn(false)
-                        navController.navigate(R.id.action_global_nested_graph_login)
-                        Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
-                        true
+
+        if (checkInternetConnection(this)) {
+            return when (item.itemId) {
+                R.id.action_Logout -> {
+                    Log.d(TAG, "Selected :  $item")
+                    try {
+                        run {
+                            FirebaseAuth.getInstance().signOut()
+                            preferenceHelper.setUserLoggedIn(false)
+                            navController.navigate(R.id.action_global_nested_graph_login)
+                            Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
+                            true
+                        }
+                    } catch (e: Exception) {
+                        Log.d(TAG, " error in mainActivity  " + e.message.toString())
+                        super.onOptionsItemSelected(item)
                     }
-                } catch (e: Exception) {
-                    Log.d(TAG, " error in mainActivity  " + e.message.toString())
-                    super.onOptionsItemSelected(item)
                 }
+                else -> super.onOptionsItemSelected(item)
             }
-            else -> super.onOptionsItemSelected(item)
+        } else {
+            Toast.makeText(
+                this,
+                "No Network please turn on",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
         }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

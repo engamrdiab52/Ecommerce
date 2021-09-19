@@ -17,6 +17,7 @@ import com.example.bags.R
 import com.example.bags.databinding.FragmentLoginBinding
 import com.example.bags.framework.LoginFlowViewModelFactory
 import com.example.bags.framework.PreferenceManager
+import com.example.bags.framework.utilis.checkInternetConnection
 import com.example.bags.presentation.LoginFlowViewModel
 import com.example.core.data.IPreferenceHelper
 import com.google.firebase.auth.FirebaseAuth
@@ -50,11 +51,18 @@ class LoginFragment : Fragment() {
                 preferenceHelper.setUserLoggedIn(true)
                 findNavController().navigate(R.id.action_global_nested_graph_home)
             } else {
-                Toast.makeText(requireContext(), "Please Verify your Email", Toast.LENGTH_SHORT)
-                    .show()
-                Log.d(TAG, "Please Verify your Email")
+                if (checkInternetConnection(requireContext())) {
+                    Toast.makeText(requireContext(), "Please Verify your Email", Toast.LENGTH_SHORT)
+                        .show()
+                    Log.d(TAG, "Please Verify your Email")
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "No Network please turn on",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-
         })
 
         binding.buttonLogin.setOnClickListener {
@@ -63,8 +71,18 @@ class LoginFragment : Fragment() {
             if (validEmail && validPassword) {
                 val email = binding.editTextLoginEmail.text.toString()
                 val password = binding.editTextLoginPassword.text.toString()
-                viewModel.signIn(email, password)
-                Toast.makeText(requireContext(), "$email + $password", Toast.LENGTH_SHORT).show()
+                if (checkInternetConnection(requireContext())) {
+                    viewModel.signIn(email, password)
+                    Toast.makeText(requireContext(), "$email + $password", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "No Network please turn on",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
             } else {
                 //may use singleLiveEvent
                 Toast.makeText(requireContext(), "** INVALID CREDENTIALS **", Toast.LENGTH_LONG)

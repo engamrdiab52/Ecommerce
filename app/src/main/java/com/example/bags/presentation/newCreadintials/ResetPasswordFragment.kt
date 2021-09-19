@@ -38,10 +38,18 @@ class ResetPasswordFragment : Fragment() {
                 Log.d(TAG, "66666666" + it.toString())
                 findNavController().navigate(R.id.action_resetPasswordFragment_to_loginFragment)
             } else {
-                if (checkInternetConnection(requireContext())){
-                    Toast.makeText(requireContext(), "something Wrong try later",Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(requireContext(), "No Network please turn on",Toast.LENGTH_SHORT).show()
+                if (checkInternetConnection(requireContext())) {
+                    Toast.makeText(
+                        requireContext(),
+                        "something Wrong try later",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "No Network please turn on",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -50,7 +58,15 @@ class ResetPasswordFragment : Fragment() {
             validateEmailField()
             if (validEmail) {
                 val email = binding.editTextEmailResetPassword.text.toString()
-                viewModel.resetPassword(email)
+                if (checkInternetConnection(requireContext())) {
+                    viewModel.resetPassword(email)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "No Network please turn on",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             } else {
                 Toast.makeText(requireContext(), "** INVALID CREDENTIALS **", Toast.LENGTH_LONG)
                     .show()
@@ -70,5 +86,13 @@ class ResetPasswordFragment : Fragment() {
             binding.textLayoutEmailResetPassword.error = null
         }.check()
     }
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setDrawerLocked()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as MainActivity).setDrawerUnlocked()
+    }
 }
