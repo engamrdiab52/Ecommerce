@@ -4,52 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="favoriteOrder"
-            type="com.example.core.domain.FavoriteOrder" />
+            <variable
+                name="favoriteOrder"
+                type="com.example.core.domain.FavoriteOrder" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:padding="16dp"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="3dp"
-        app:strokeWidth="2dp">
+        android:layout_margin="8dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/img_card_favorit"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:padding="8dp"
+                android:layout_height="194dp"
+                android:contentDescription="@string/bag"
                 android:scaleType="fitCenter"
                 app:imageUrl="@{favoriteOrder.url_product}"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@mipmap/bag_1" />
 
-            <TextView
-                android:id="@+id/txt_view_price_card_favorite"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:gravity="center"
-                android:text="@{favoriteOrder.price_product}" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/txt_view_name_card_favorite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:gravity="center"
-                android:text="@{favoriteOrder.name_product}" />
+                <TextView
+                    android:id="@+id/txt_view_name_card_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@{favoriteOrder.name_product}"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lines="3"
+                    android:maxLines="3"
+                    android:text="@{favoriteOrder.description_product}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView
+                    android:id="@+id/txt_view_price_card_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{favoriteOrder.price_product}"
+                    android:textAppearance="?attr/textAppearanceHeadline5" />
+            </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

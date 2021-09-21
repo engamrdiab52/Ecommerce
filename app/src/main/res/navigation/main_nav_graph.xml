@@ -114,7 +114,7 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.bags.presentation.favorite.FavoriteFragment"
-        android:label="FavoriteFragment"
+        android:label="Favorites"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/searchFragment"

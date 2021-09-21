@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
 class BagsApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-      //  Firebase.database.setPersistenceEnabled(true)
+        Firebase.database.setPersistenceEnabled(true)
         val mAuth = FirebaseAuth.getInstance()
         LoginFlowViewModelFactory.inject(
             this, Interactions(
