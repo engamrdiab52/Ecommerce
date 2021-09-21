@@ -27,22 +27,22 @@ class LoginFlowViewModel(application: Application, dependencies: Interactions) :
     private val _emailVerified = SingleLiveEvent<Boolean>()
     val emailVerified: LiveData<Boolean> get() = _emailVerified
 
+    private val _downloading = SingleLiveEvent<Boolean>()
+    val downloading: LiveData<Boolean> get() = _downloading
+
     fun signIn(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            _downloading.postValue(true)
             _userSignedIn.postValue(dependencies.signInUser(email, password))
-            /*
-                if (FirebaseAuth.getInstance().currentUser?.isEmailVerified == true) {
-                //    dependencies.userLoggedIn
-                    Log.d(TAG, " email verified  ")
-                } else {
-                    Log.d(TAG, "please verify email")
-                }*/
+           _downloading.postValue(false)
         }
     }
 
     fun createUser(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            _downloading.postValue(true)
             _userCreated.postValue(dependencies.signUpUser(email, password))
+            _downloading.postValue(false)
         }
     }
 
@@ -54,7 +54,9 @@ class LoginFlowViewModel(application: Application, dependencies: Interactions) :
 
     fun resetPassword(email: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            _downloading.postValue(true)
             _passwordChanged.postValue(dependencies.resetUserPassword(email))
+            _downloading.postValue(false)
         }
     }
 

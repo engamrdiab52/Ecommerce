@@ -37,6 +37,14 @@ class LoginFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         preferenceHelper = PreferenceManager(requireActivity().applicationContext)
+      viewModel.downloading.observe(viewLifecycleOwner, {
+          if (it) {
+              binding.loadingIndecatorLogin.visibility = View.VISIBLE
+          } else {
+              binding.loadingIndecatorLogin.visibility = View.GONE
+          }
+      })
+
         viewModel.userSignedIn.observe(viewLifecycleOwner, {
             if (it == true) {
                 Log.d(TAG, "userSigned in but we still dont know if he verified email")

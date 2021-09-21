@@ -2,18 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nested_graph_home"
-        android:icon="@drawable/ic_classroom"
+        android:icon="@drawable/ic_outline_home"
         android:title="@string/home" />
     <item
-        android:id="@+id/cartFragment"
-        android:icon="@drawable/ic_scheduel"
-        android:title="@string/cart" />
-    <item
         android:id="@+id/searchFragment"
-        android:icon="@drawable/ic_explore"
+        android:icon="@drawable/ic_search"
         android:title="@string/search" />
     <item
-        android:id="@+id/deleteUser"
+        android:id="@+id/favoriteFragment"
+        android:title="@string/favorite"
+        android:icon="@drawable/ic_favorite"/>
+    <item
+        android:id="@+id/cartFragment"
+        android:icon="@drawable/ic_baseline_add_shopping_cart_24"
+        android:title="@string/cart" />
+
+    <item
+        android:id="@+id/deleteAccount"
         android:icon="@drawable/ic_profile"
         android:title="@string/delete_account" />
 

@@ -28,6 +28,7 @@
     <string name="settings">settings</string>
     <string name="logout">Logout</string>
     <string name="delete_account">Delete Account</string>
+    <string name="do_you_raelly_want_to_elete_account">Do you raelly want to elete account ?</string>
 
 
 </resources>

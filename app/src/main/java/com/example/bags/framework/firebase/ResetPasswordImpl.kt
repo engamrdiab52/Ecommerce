@@ -13,14 +13,6 @@ import kotlinx.coroutines.withTimeoutOrNull
 class ResetPasswordImpl(private val mAuth: FirebaseAuth, private val context: Context) :
     IResetPassword {
     override suspend fun resetPassword(email: String): Boolean {
-        /*     return try {
-                 mAuth.sendPasswordResetEmail(email).await()
-                 Log.d(TAG, "555555555555")
-                 true
-             } catch (ex: Exception) {
-                 Log.d(TAG,"33333333333333" +ex.message.toString())
-                 false
-             }*/
         return if (checkInternetConnection(context)) {
             val result = withTimeoutOrNull(3000L) {
                 try{

@@ -3,19 +3,17 @@
     <item
         android:id="@+id/nested_graph_home"
         android:title="@string/home"
-        android:icon="@drawable/ic_classroom"/>
-    <item
-        android:id="@+id/cartFragment"
-        android:title="@string/cart"
-        android:icon="@drawable/ic_scheduel"/>
+        android:icon="@drawable/ic_outline_home"/>
     <item
         android:id="@+id/searchFragment"
         android:title="@string/search"
-        android:icon="@drawable/ic_explore" />
-
+        android:icon="@drawable/ic_search" />
     <item
         android:id="@+id/favoriteFragment"
         android:title="@string/favorite"
-        android:icon="@drawable/ic_reminder"/>
-
+        android:icon="@drawable/ic_favorite"/>
+    <item
+        android:id="@+id/cartFragment"
+        android:title="@string/cart"
+        android:icon="@drawable/ic_baseline_add_shopping_cart_24"/>
 </menu>

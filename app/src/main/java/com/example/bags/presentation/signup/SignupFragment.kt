@@ -39,6 +39,14 @@ class SignupFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup, container, false)
 
+        viewModel.downloading.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                binding.loadingIndecator.visibility = View.VISIBLE
+            } else {
+                binding.loadingIndecator.visibility = View.GONE
+            }
+        })
+
         viewModel.emailVerificationSent.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 Toast.makeText(requireContext(), "Email sent successfully", Toast.LENGTH_SHORT)

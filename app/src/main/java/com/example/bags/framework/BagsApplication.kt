@@ -7,10 +7,13 @@ import com.example.core.data.*
 import com.example.core.useCases.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class BagsApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+      //  Firebase.database.setPersistenceEnabled(true)
         val mAuth = FirebaseAuth.getInstance()
         LoginFlowViewModelFactory.inject(
             this, Interactions(
@@ -26,7 +29,8 @@ class BagsApplication : Application() {
                 SignOutUser(RepositorySignOutUser(SignOutUserImpl(mAuth))),
                 VerifyUserEmail(RepositoryVerifyEmail(VerifyUserEmailImpl(mAuth))),
                 SignInUser(RepositorySignInUser(SignInUserImpl(mAuth))),
-                EmailVerifiedState(RepositoryEmailVerifiedState(EmailVerifiesStateImpl(mAuth, this.applicationContext)))
+                EmailVerifiedState(RepositoryEmailVerifiedState(EmailVerifiesStateImpl(mAuth, this.applicationContext))),
+                DownloadFavorites(RepositoryDownloadFavorites(DownloadFavoritesImpl(Firebase.database.getReference("user_1"))))
             )
         )
     }

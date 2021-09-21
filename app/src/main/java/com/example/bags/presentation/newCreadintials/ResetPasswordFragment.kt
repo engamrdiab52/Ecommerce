@@ -31,6 +31,13 @@ class ResetPasswordFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_reset_password, container, false)
+        viewModel.downloading.observe(viewLifecycleOwner, {
+            if (it) {
+                binding.loadingIndecatorResetPassword.visibility = View.VISIBLE
+            } else {
+                binding.loadingIndecatorResetPassword.visibility = View.GONE
+            }
+        })
         viewModel.passwordChanged.observe(viewLifecycleOwner, {
             if (it == true) {
                 Toast.makeText(requireContext(), "Email sent successfully", Toast.LENGTH_SHORT)

@@ -20,6 +20,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.bags.databinding.ActivityMainBinding
 import com.example.bags.framework.PreferenceManager
 import com.example.bags.framework.utilis.checkInternetConnection
+import com.example.bags.presentation.login.LoginFragment
 import com.example.core.data.IPreferenceHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -63,36 +64,6 @@ class MainActivity : AppCompatActivity(), myDrawerController {
         }
         bottomNavigationView.setupWithNavController(navController)
         navigationView.setupWithNavController(navController)
-        navigationView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.deleteUser -> {
-
-                   
-                    
-                    
-                    if (FirebaseAuth.getInstance().currentUser != null) {
-                        if (checkInternetConnection(this)) {
-                            FirebaseAuth.getInstance().currentUser?.delete()
-                            preferenceHelper.setUserLoggedIn(false)
-                            navController.navigate(R.id.action_global_nested_graph_login)
-                            Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
-                            true
-                        } else {
-                            Toast.makeText(
-                                this,
-                                "No Network please turn on",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            true
-                        }
-                    } else {
-                        Log.d(TAG,"MainActivity : something error")
-                        true
-                    }
-                }
-                else -> true
-            }
-        }
         // if (it.itemId== R.id.deleteUser)FirebaseAuth.getInstance().currentUser.delete()
 
         //to hide up button when this fragments selected
@@ -119,8 +90,8 @@ class MainActivity : AppCompatActivity(), myDrawerController {
                         run {
                             FirebaseAuth.getInstance().signOut()
                             preferenceHelper.setUserLoggedIn(false)
-                            navController.navigate(R.id.action_global_nested_graph_login)
                             Log.d(TAG, FirebaseAuth.getInstance().currentUser.toString())
+                          navController.navigate(R.id.nested_graph_login)
                             true
                         }
                     } catch (e: Exception) {
@@ -136,9 +107,8 @@ class MainActivity : AppCompatActivity(), myDrawerController {
                 "No Network please turn on",
                 Toast.LENGTH_SHORT
             ).show()
-            return false
+        return    super.onOptionsItemSelected(item)
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

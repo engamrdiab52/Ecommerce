@@ -34,6 +34,9 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/nested_graph_home"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_global_deleteAccount"
+            app:destination="@id/deleteAccount" />
     </navigation>
     <navigation
         android:id="@+id/nested_graph_login"
@@ -118,4 +121,9 @@
         android:name="com.example.bags.presentation.search.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/deleteAccount"
+        android:name="com.example.bags.presentation.deleteAccount.DeleteAccount"
+        android:label="fragment_delete_account"
+        tools:layout="@layout/fragment_delete_account" />
 </navigation>
