@@ -16,6 +16,12 @@
                 android:id="@+id/action_homeFragment_to_detailsFragment"
                 app:destination="@id/detailsFragment"
                 app:popUpTo="@id/homeFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_categoryWomenFragment"
+                app:destination="@id/categoryWomenFragment"
+                app:popUpTo="@id/homeFragment"
+                app:launchSingleTop="true"
+                />
         </fragment>
         <fragment
             android:id="@+id/detailsFragment"
@@ -37,6 +43,11 @@
         <action
             android:id="@+id/action_global_deleteAccount"
             app:destination="@id/deleteAccount" />
+        <fragment
+            android:id="@+id/categoryWomenFragment"
+            android:name="com.example.bags.presentation.categories.women.CategoryWomenFragment"
+            android:label="Women’s Bags"
+            tools:layout="@layout/fragment_category_women" />
     </navigation>
     <navigation
         android:id="@+id/nested_graph_login"

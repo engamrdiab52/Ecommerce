@@ -29,6 +29,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding.btnToCategoryWomen.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_categoryWomenFragment)
+        }
         preferenceHelper = PreferenceManager(requireActivity().applicationContext)
         if (!preferenceHelper.getUserLoggedIn()) {
             findNavController().navigate(R.id.action_global_nested_graph_login)

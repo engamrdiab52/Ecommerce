@@ -14,6 +14,7 @@ class BagsApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Firebase.database.setPersistenceEnabled(true)
+        val databaseReference = Firebase.database.reference
         val mAuth = FirebaseAuth.getInstance()
         LoginFlowViewModelFactory.inject(
             this, Interactions(
@@ -30,7 +31,9 @@ class BagsApplication : Application() {
                 VerifyUserEmail(RepositoryVerifyEmail(VerifyUserEmailImpl(mAuth))),
                 SignInUser(RepositorySignInUser(SignInUserImpl(mAuth))),
                 EmailVerifiedState(RepositoryEmailVerifiedState(EmailVerifiesStateImpl(mAuth, this.applicationContext))),
-                DownloadFavorites(RepositoryDownloadFavorites(DownloadFavoritesImpl(Firebase.database.getReference("user_1"))))
+                DownloadFavorites(RepositoryDownloadFavorites(DownloadFavoritesImpl(databaseReference))),
+                DownloadCategoryWomen(RepositoryCategoryWomen(DownloadCategoryWomenImpl(databaseReference))),
+                DownloadCategories(RepositoryDownloadCategories(DownloadCategoriesImpl(databaseReference)))
             )
         )
     }

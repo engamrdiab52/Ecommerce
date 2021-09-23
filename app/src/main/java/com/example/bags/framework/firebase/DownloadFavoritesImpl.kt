@@ -13,7 +13,7 @@ class DownloadFavoritesImpl(private val databaseReference: DatabaseReference) : 
     override suspend fun downloadFavorites(): List<FavoriteOrder> {
         return try {
             _listOfFavorites.clear()
-            val snapshot = databaseReference.get().await()
+            val snapshot = databaseReference.child("user_1").get().await()
                 snapshot.children.forEach {
                     val item = it.getValue(FavoriteOrder::class.java)
                     item?.let { it1 -> _listOfFavorites.add(it1) }
