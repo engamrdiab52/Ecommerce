@@ -15,7 +15,7 @@ class DownloadCategoriesImpl(private val databaseReference: DatabaseReference) :
     override suspend fun downloadCategories(): List<Category>? {
         return try {
             _listOfCategories.clear()
-            val snapshot = databaseReference.child("categoryWomen").get().await()
+            val snapshot = databaseReference.child("categories").get().await()
             snapshot.children.forEach {
                 val item = it.getValue(Category::class.java)
                 item?.let { it1 -> _listOfCategories.add(it1) }

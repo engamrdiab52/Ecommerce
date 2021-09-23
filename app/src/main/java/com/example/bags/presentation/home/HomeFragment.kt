@@ -12,32 +12,56 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.EpoxyRecyclerView
-import com.example.bags.MainActivity.Companion.TAG
+import com.example.bags.MainActivity
 import com.example.bags.R
 import com.example.bags.databinding.FragmentHomeBinding
 import com.example.bags.framework.LoginFlowViewModelFactory
 import com.example.bags.framework.PreferenceManager
-import com.example.bags.presentation.favorite.FavoriteListEpoxyController
-import com.example.bags.presentation.favorite.FavoriteViewModel
 import com.example.core.data.IPreferenceHelper
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var preferenceHelper: IPreferenceHelper
+    private lateinit var layoutManager: GridLayoutManager
+    private lateinit var recyclerView: EpoxyRecyclerView
+
+    private val categoriesEpoxyController by lazy {
+        CategoriesEpoxyController()
+    }
+    private val viewModel: HomeViewModel by lazy {
+        ViewModelProvider(this, LoginFlowViewModelFactory)[HomeViewModel::class.java]
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binding.btnToCategoryWomen.setOnClickListener{
-            findNavController().navigate(R.id.action_homeFragment_to_categoryWomenFragment)
-        }
         preferenceHelper = PreferenceManager(requireActivity().applicationContext)
         if (!preferenceHelper.getUserLoggedIn()) {
             findNavController().navigate(R.id.action_global_nested_graph_login)
         }
-        preferenceHelper = PreferenceManager(requireActivity().applicationContext)
+        recyclerView = binding.recyclerViewHome
+        recyclerView.adapter = categoriesEpoxyController.adapter
+        layoutManager = GridLayoutManager(context, 2)
+        recyclerView.layoutManager = layoutManager
+        viewModel.downloading.observe(viewLifecycleOwner,  {
+            if (it) {
+                binding.loadingIndecatorHome.visibility = View.VISIBLE
+            } else {
+                binding.loadingIndecatorHome.visibility = View.GONE
+            }
+        })
+
+        viewModel.listOfCategories.observe(viewLifecycleOwner, {
+            categoriesEpoxyController.setData(it)
+            Log.d(MainActivity.TAG, it.toString())
+        })
+        viewModel.cardClicked.observe(viewLifecycleOwner, Observer{
+            findNavController().navigate(R.id.action_homeFragment_to_categoryWomenFragment)
+        })
+        viewModel.downloadCategories()
         return binding.root
     }
 
 }
+//findNavController().navigate(R.id.action_homeFragment_to_categoryWomenFragment)

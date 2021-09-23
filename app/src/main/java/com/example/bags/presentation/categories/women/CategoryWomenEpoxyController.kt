@@ -6,7 +6,7 @@ import com.example.bags.categoryCard
 import com.example.bags.favoriteCard
 import com.example.core.domain.Bag
 
-class CategoriesListEpoxyController : TypedEpoxyController<List<Bag>>(
+class CategoryWomenEpoxyController : TypedEpoxyController<List<Bag>>(
     EpoxyAsyncUtil.getAsyncBackgroundHandler(),
     EpoxyAsyncUtil.getAsyncBackgroundHandler()
 ) {

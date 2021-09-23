@@ -7,16 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.bags.MainActivity
 import com.example.bags.R
-import com.example.bags.databinding.FragmentCategoriesBinding
 import com.example.bags.databinding.FragmentCategoryWomenBinding
 import com.example.bags.framework.LoginFlowViewModelFactory
-import com.example.bags.presentation.favorite.FavoriteViewModel
 
 class CategoryWomenFragment : Fragment() {
     private lateinit var binding: FragmentCategoryWomenBinding
@@ -25,8 +22,8 @@ class CategoryWomenFragment : Fragment() {
     private val viewModel: CategoryWomenViewModel by lazy {
         ViewModelProvider(this, LoginFlowViewModelFactory)[CategoryWomenViewModel::class.java]
     }
-    private val categoriesListEpoxyController by lazy {
-        CategoriesListEpoxyController()
+    private val categoryWomenEpoxyController by lazy {
+        CategoryWomenEpoxyController()
     }
 
     override fun onCreateView(
@@ -36,7 +33,7 @@ class CategoryWomenFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_category_women, container, false)
         recyclerView = binding.recyclerViewCategoryWomen
-        recyclerView.adapter = categoriesListEpoxyController.adapter
+        recyclerView.adapter = categoryWomenEpoxyController.adapter
         layoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = layoutManager
         viewModel.downloading.observe(viewLifecycleOwner,  {
@@ -47,7 +44,7 @@ class CategoryWomenFragment : Fragment() {
             }
         })
         viewModel.listOfCategoryWomen.observe(viewLifecycleOwner, {
-            categoriesListEpoxyController.setData(it)
+            categoryWomenEpoxyController.setData(it)
             Log.d(MainActivity.TAG, it.toString())
         })
         viewModel.downloadCategoryWomen()
