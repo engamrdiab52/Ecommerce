@@ -14,16 +14,11 @@
             android:label="Home"
             tools:layout="@layout/fragment_home">
             <action
-                android:id="@+id/action_homeFragment_to_categoryWomenFragment"
-                app:destination="@id/categoryWomenFragment"
+                android:id="@+id/action_homeFragment_to_nested_graph_women_bags"
+                app:destination="@id/nested_graph_women_bags"
                 app:launchSingleTop="true"
                 app:popUpTo="@id/homeFragment" />
         </fragment>
-        <fragment
-            android:id="@+id/detailsFragment"
-            android:name="com.example.bags.presentation.details.DetailsFragment"
-            tools:layout="@layout/fragment_details"
-            android:label="Details" />
         <action
             android:id="@+id/action_global_nested_graph_login"
             app:destination="@id/nested_graph_login"
@@ -33,17 +28,29 @@
         <action
             android:id="@+id/action_global_deleteAccount"
             app:destination="@id/deleteAccount" />
-        <fragment
-            android:id="@+id/categoryWomenFragment"
-            android:name="com.example.bags.presentation.categories.women.CategoryWomenFragment"
-            android:label="Women’s Bags"
-            tools:layout="@layout/fragment_category_women">
-            <action
-                android:id="@+id/action_categoryWomenFragment_to_detailsFragment"
-                app:destination="@id/detailsFragment"
-                app:launchSingleTop="true"
-                app:popUpTo="@id/categoryWomenFragment"/>
-        </fragment>
+        <navigation
+            android:id="@+id/nested_graph_women_bags"
+            app:startDestination="@id/categoryWomenFragment">
+            <fragment
+                android:id="@+id/categoryWomenFragment"
+                android:name="com.example.bags.presentation.categories.women.CategoryWomenFragment"
+                android:label="Women’s Bags"
+                tools:layout="@layout/fragment_category_women">
+                <action
+                    android:id="@+id/action_categoryWomenFragment_to_detailsFragment"
+                    app:destination="@id/detailsFragment"
+                    app:launchSingleTop="true"
+                    app:popUpTo="@id/categoryWomenFragment" />
+            </fragment>
+            <fragment
+                android:id="@+id/detailsFragment"
+                android:name="com.example.bags.presentation.categories.women.WomenDetailsFragment"
+                android:label="Details"
+                tools:layout="@layout/fragment_women_details">
+
+            </fragment>
+
+        </navigation>
     </navigation>
     <navigation
         android:id="@+id/nested_graph_login"
@@ -119,11 +126,6 @@
         android:label="Cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.example.bags.presentation.favorite.FavoriteFragment"
-        android:label="Favorites"
-        tools:layout="@layout/fragment_favorite" />
-    <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.bags.presentation.search.SearchFragment"
         android:label="Search"
@@ -133,4 +135,24 @@
         android:name="com.example.bags.presentation.deleteAccount.DeleteAccount"
         android:label="fragment_delete_account"
         tools:layout="@layout/fragment_delete_account" />
+    <navigation
+        android:id="@+id/nested_graph_favorites"
+        app:startDestination="@id/favoriteFragment">
+        <fragment
+            android:id="@+id/favoriteFragment"
+            android:name="com.example.bags.presentation.favorite.FavoriteFragment"
+            android:label="Favorites"
+            tools:layout="@layout/fragment_favorite">
+            <action
+                android:id="@+id/action_favoriteFragment_to_favoritesDetailsFragment2"
+                app:destination="@id/favoritesDetailsFragment"
+                app:launchSingleTop="true"
+                app:popUpTo="@id/favoriteFragment"/>
+        </fragment>
+        <fragment
+            android:id="@+id/favoritesDetailsFragment"
+            android:name="com.example.bags.presentation.favorite.FavoritesDetailsFragment"
+            android:label="FavoritesDetailsFragment"
+            tools:layout="@layout/fragment_favorites_details" />
+    </navigation>
 </navigation>

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application, dependencies: Interactions):
     BagsViewModel(application, dependencies) {
-    private val _listOfCategories = MutableLiveData<List<Category>>()
+    private val _listOfCategories = SingleLiveEvent<List<Category>>()
     val listOfCategories: LiveData<List<Category>> get() = _listOfCategories
 
     private val _downloading = SingleLiveEvent<Boolean>()

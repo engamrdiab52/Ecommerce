@@ -18,7 +18,14 @@ class BagsApplication : Application() {
         val mAuth = FirebaseAuth.getInstance()
         LoginFlowViewModelFactory.inject(
             this, Interactions(
-                ResetUserPassword(RepositoryResetPassword(ResetPasswordImpl(mAuth,this.applicationContext))),
+                ResetUserPassword(
+                    RepositoryResetPassword(
+                        ResetPasswordImpl(
+                            mAuth,
+                            this.applicationContext
+                        )
+                    )
+                ),
                 SendEmailVerification(
                     RepositorySendEmailVerification(
                         SendEmailVerificationImpl(
@@ -30,10 +37,49 @@ class BagsApplication : Application() {
                 SignOutUser(RepositorySignOutUser(SignOutUserImpl(mAuth))),
                 VerifyUserEmail(RepositoryVerifyEmail(VerifyUserEmailImpl(mAuth))),
                 SignInUser(RepositorySignInUser(SignInUserImpl(mAuth))),
-                EmailVerifiedState(RepositoryEmailVerifiedState(EmailVerifiesStateImpl(mAuth, this.applicationContext))),
-                DownloadFavorites(RepositoryDownloadFavorites(DownloadFavoritesImpl(databaseReference))),
-                DownloadCategoryWomen(RepositoryCategoryWomen(DownloadCategoryWomenImpl(databaseReference))),
-                DownloadCategories(RepositoryDownloadCategories(DownloadCategoriesImpl(databaseReference)))
+                EmailVerifiedState(
+                    RepositoryEmailVerifiedState(
+                        EmailVerifiesStateImpl(
+                            mAuth,
+                            this.applicationContext
+                        )
+                    )
+                ),
+                DownloadFavorites(
+                    RepositoryDownloadFavorites(
+                        DownloadFavoritesImpl(
+                            databaseReference
+                        )
+                    )
+                ),
+                DownloadCategoryWomen(
+                    RepositoryCategoryWomen(
+                        DownloadCategoryWomenImpl(
+                            databaseReference
+                        )
+                    )
+                ),
+                DownloadCategories(
+                    RepositoryDownloadCategories(
+                        DownloadCategoriesImpl(
+                            databaseReference
+                        )
+                    )
+                ),
+                UploadFavoriteItem(
+                    RepositoryUploadFavoriteItem(
+                        UploadFavoriteItemImpl(
+                            databaseReference
+                        )
+                    )
+                ),
+                RemoveFavoriteItem(
+                    RepositoryRemoveFavoriteItem(
+                        RemoveFavoriteItemImpl(
+                            databaseReference
+                        )
+                    )
+                )
             )
         )
     }

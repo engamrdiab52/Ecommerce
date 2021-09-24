@@ -6,15 +6,21 @@ import com.example.bags.categoryCard
 import com.example.bags.favoriteCard
 import com.example.core.domain.Bag
 
-class CategoryWomenEpoxyController : TypedEpoxyController<List<Bag>>(
-    EpoxyAsyncUtil.getAsyncBackgroundHandler(),
-    EpoxyAsyncUtil.getAsyncBackgroundHandler()
-) {
+class CategoryWomenEpoxyController(private val viewModel: CategoryWomenViewModel) :
+    TypedEpoxyController<List<Bag>>(
+        EpoxyAsyncUtil.getAsyncBackgroundHandler(),
+        EpoxyAsyncUtil.getAsyncBackgroundHandler()
+    ) {
     override fun buildModels(data: List<Bag>?) {
         data?.forEachIndexed { _, bag ->
             categoryCard {
                 id(bag.id_product)
                 bag(bag)
+                onClickContent { _ ->
+                    this@CategoryWomenEpoxyController.viewModel.addIdValue(bag)
+                    this@CategoryWomenEpoxyController.viewModel.buttonGoToDetailsClicked()
+                }
+
             }
         }
     }

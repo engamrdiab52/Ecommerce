@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.bags.MainActivity
@@ -25,12 +26,13 @@ class FavoriteFragment : Fragment() {
 
     private lateinit var layoutManager: GridLayoutManager
     private val favoriteListEpoxyController by lazy {
-        FavoriteListEpoxyController()
+        FavoriteListEpoxyController(viewModel)
     }
     private lateinit var recyclerView: EpoxyRecyclerView
-    private val viewModel: FavoriteViewModel by lazy {
-        ViewModelProvider(this, LoginFlowViewModelFactory)[FavoriteViewModel::class.java]
+    private val viewModel: FavoriteViewModel by navGraphViewModels(R.id.nested_graph_favorites) {
+        LoginFlowViewModelFactory
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +53,9 @@ class FavoriteFragment : Fragment() {
             favoriteListEpoxyController.setData(it)
             Log.d(MainActivity.TAG, it.toString())
         })
-
+        viewModel.cardClicked.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.action_favoriteFragment_to_favoritesDetailsFragment2)
+        })
         viewModel.downloadFavorites()
         // Inflate the layout for this fragment
         return binding.root

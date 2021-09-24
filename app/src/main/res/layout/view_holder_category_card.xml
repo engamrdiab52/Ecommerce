@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="onClickContent"
+            type="android.view.View.OnClickListener" />
+        <variable
             name="bag"
             type="com.example.core.domain.Bag" />
 
@@ -15,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:onClick="@{onClickContent}"
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"

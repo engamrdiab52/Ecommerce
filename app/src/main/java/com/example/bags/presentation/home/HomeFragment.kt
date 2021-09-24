@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this, LoginFlowViewModelFactory)[HomeViewModel::class.java]
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = categoriesEpoxyController.adapter
         layoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = layoutManager
-        viewModel.downloading.observe(viewLifecycleOwner,  {
+        viewModel.downloading.observe(viewLifecycleOwner, {
             if (it) {
                 binding.loadingIndecatorHome.visibility = View.VISIBLE
             } else {
@@ -58,12 +59,12 @@ class HomeFragment : Fragment() {
             categoriesEpoxyController.setData(it)
             Log.d(TAG, it.toString())
         })
-        viewModel.womenCategoryClicked.observe(viewLifecycleOwner, Observer{
+        viewModel.womenCategoryClicked.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "CARD clicked.........")
-            findNavController().navigate(R.id.action_homeFragment_to_categoryWomenFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_nested_graph_women_bags)
         })
-        viewModel.cardClicked.observe(viewLifecycleOwner, Observer{
-            Toast.makeText(requireContext(),"NOT implemented yet", Toast.LENGTH_SHORT ).show()
+        viewModel.cardClicked.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(requireContext(), "NOT implemented yet", Toast.LENGTH_SHORT).show()
         })
         viewModel.downloadCategories()
         return binding.root

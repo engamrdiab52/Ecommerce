@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.bags.MainActivity.Companion.TAG
 import com.example.core.data.IDownloadFavorites
 import com.example.core.domain.FavoriteOrder
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import kotlinx.coroutines.tasks.await
 
@@ -13,11 +14,12 @@ class DownloadFavoritesImpl(private val databaseReference: DatabaseReference) : 
     override suspend fun downloadFavorites(): List<FavoriteOrder> {
         return try {
             _listOfFavorites.clear()
-            val snapshot = databaseReference.child("user_1").get().await()
-                snapshot.children.forEach {
-                    val item = it.getValue(FavoriteOrder::class.java)
-                    item?.let { it1 -> _listOfFavorites.add(it1) }
-                }
+            val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
+            val snapshot = userId?.let { databaseReference.child("favorites").child(it).get().await() }
+            snapshot?.children?.forEach {
+                val item = it.getValue(FavoriteOrder::class.java)
+                item?.let { it1 -> _listOfFavorites.add(it1) }
+            }
                 listOfFavorites
 
         } catch (e: Exception) {

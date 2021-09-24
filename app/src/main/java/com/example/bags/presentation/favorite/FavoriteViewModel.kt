@@ -10,23 +10,45 @@ import com.example.bags.framework.Interactions
 import com.example.bags.framework.LoginFlowViewModelFactory.application
 import com.example.bags.framework.LoginFlowViewModelFactory.dependencies
 import com.example.bags.framework.utilis.SingleLiveEvent
+import com.example.core.domain.Bag
 import com.example.core.domain.FavoriteOrder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(application: Application, dependencies: Interactions) :
     BagsViewModel(application, dependencies) {
-    private val _listOfFavorites = MutableLiveData<List<FavoriteOrder>>()
+    private val _listOfFavorites = SingleLiveEvent<List<FavoriteOrder>>()
     val listOfFavorites: LiveData<List<FavoriteOrder>> get() = _listOfFavorites
 
     private val _downloading = SingleLiveEvent<Boolean>()
     val downloading: LiveData<Boolean> get() = _downloading
 
-    fun downloadFavorites(){
-        viewModelScope.launch(Dispatchers.IO){
+    private val _cardClicked = SingleLiveEvent<Boolean>()
+    val cardClicked: LiveData<Boolean> get() = _cardClicked
+
+    private val _favoriteBag = SingleLiveEvent<FavoriteOrder?>()
+    val favoriteBag: LiveData<FavoriteOrder?> get() = _favoriteBag
+
+    private val _uploadTask = SingleLiveEvent<Boolean>()
+    val uploadTask: LiveData<Boolean> get() = _uploadTask
+
+    fun downloadFavorites() {
+        viewModelScope.launch(Dispatchers.IO) {
             _downloading.postValue(true)
             _listOfFavorites.postValue(dependencies.downloadFavorites())
             _downloading.postValue(false)
+        }
+    }
+    fun buttonGoToFavoritesDetailsClicked(){
+        _cardClicked.value = true
+    }
+    fun addIdValue(favoriteBag: FavoriteOrder?){
+        _favoriteBag.value = favoriteBag
+    }
+
+    fun removeItem(userId:String, bag: Bag){
+        viewModelScope.launch(Dispatchers.IO){
+            _uploadTask.postValue(dependencies.removeFavoriteItem(userId, bag))
         }
     }
 }

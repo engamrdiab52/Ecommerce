@@ -12,5 +12,7 @@ data class Interactions(
     val emailVerifiedState: EmailVerifiedState,
     val downloadFavorites: DownloadFavorites,
     val downloadCategoryWomen: DownloadCategoryWomen,
-    val downloadCategories: DownloadCategories
+    val downloadCategories: DownloadCategories,
+    val uploadFavoriteItem: UploadFavoriteItem,
+    val removeFavoriteItem: RemoveFavoriteItem
 )

@@ -6,8 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.bags.MainActivity
@@ -19,11 +23,11 @@ class CategoryWomenFragment : Fragment() {
     private lateinit var binding: FragmentCategoryWomenBinding
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var recyclerView: EpoxyRecyclerView
-    private val viewModel: CategoryWomenViewModel by lazy {
-        ViewModelProvider(this, LoginFlowViewModelFactory)[CategoryWomenViewModel::class.java]
+    private val viewModel: CategoryWomenViewModel by navGraphViewModels(R.id.nested_graph_women_bags) {
+        LoginFlowViewModelFactory
     }
     private val categoryWomenEpoxyController by lazy {
-        CategoryWomenEpoxyController()
+        CategoryWomenEpoxyController(viewModel)
     }
 
     override fun onCreateView(
@@ -47,9 +51,13 @@ class CategoryWomenFragment : Fragment() {
             categoryWomenEpoxyController.setData(it)
             Log.d(MainActivity.TAG, it.toString())
         })
+        viewModel.cardClicked.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.action_categoryWomenFragment_to_detailsFragment)
+            })
         viewModel.downloadCategoryWomen()
         // Inflate the layout for this fragment
         return binding.root
     }
+
 
 }

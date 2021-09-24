@@ -35,6 +35,9 @@
     <string name="_219">219</string>
     <string name="go_to_category_women">GO to category women</string>
     <string name="add_to_favorites">ADD TO FAVORITES</string>
+    <string name="delete">DELETE</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="add_to_favorite">Add TO FAVORITE</string>
 
 
 </resources>
