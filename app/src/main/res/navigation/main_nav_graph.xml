@@ -11,29 +11,19 @@
         <fragment
             android:id="@+id/homeFragment"
             android:name="com.example.bags.presentation.home.HomeFragment"
-            android:label="Home">
-            <action
-                android:id="@+id/action_homeFragment_to_detailsFragment"
-                app:destination="@id/detailsFragment"
-                app:popUpTo="@id/homeFragment" />
+            android:label="Home"
+            tools:layout="@layout/fragment_home">
             <action
                 android:id="@+id/action_homeFragment_to_categoryWomenFragment"
                 app:destination="@id/categoryWomenFragment"
-                app:popUpTo="@id/homeFragment"
                 app:launchSingleTop="true"
-                />
+                app:popUpTo="@id/homeFragment" />
         </fragment>
         <fragment
             android:id="@+id/detailsFragment"
             android:name="com.example.bags.presentation.details.DetailsFragment"
-            android:label="Details">
-            <action
-                android:id="@+id/action_detailsFragment_to_homeFragment2"
-                app:destination="@id/homeFragment"
-                app:launchSingleTop="true"
-                app:popUpTo="@id/detailsFragment"
-                app:popUpToInclusive="true" />
-        </fragment>
+            tools:layout="@layout/fragment_details"
+            android:label="Details" />
         <action
             android:id="@+id/action_global_nested_graph_login"
             app:destination="@id/nested_graph_login"
@@ -47,7 +37,13 @@
             android:id="@+id/categoryWomenFragment"
             android:name="com.example.bags.presentation.categories.women.CategoryWomenFragment"
             android:label="Women’s Bags"
-            tools:layout="@layout/fragment_category_women" />
+            tools:layout="@layout/fragment_category_women">
+            <action
+                android:id="@+id/action_categoryWomenFragment_to_detailsFragment"
+                app:destination="@id/detailsFragment"
+                app:launchSingleTop="true"
+                app:popUpTo="@id/categoryWomenFragment"/>
+        </fragment>
     </navigation>
     <navigation
         android:id="@+id/nested_graph_login"
@@ -58,11 +54,11 @@
             android:name="com.example.bags.presentation.login.LoginFragment"
             android:label="Login"
             tools:layout="@layout/fragment_login">
-          <!--  <action
-                android:id="@+id/action_loginFragment_to_newCredentialsFragment"
-                app:destination="@id/newCredentialsFragment"
-                app:launchSingleTop="true"
-                app:popUpTo="@id/loginFragment" />-->
+            <!--  <action
+                  android:id="@+id/action_loginFragment_to_newCredentialsFragment"
+                  app:destination="@id/newCredentialsFragment"
+                  app:launchSingleTop="true"
+                  app:popUpTo="@id/loginFragment" />-->
             <action
                 android:id="@+id/action_loginFragment_to_signupFragment"
                 app:destination="@id/signupFragment"
@@ -72,19 +68,19 @@
                 android:id="@+id/action_loginFragment_to_resetPasswordFragment"
                 app:destination="@id/resetPasswordFragment"
                 app:launchSingleTop="true"
-                app:popUpTo="@id/loginFragment"/>
+                app:popUpTo="@id/loginFragment" />
         </fragment>
         <fragment
             android:id="@+id/newCredentialsFragment"
             android:name="com.example.bags.presentation.newCreadintials.NewCredentialsFragment"
             android:label="NewCredentials"
             tools:layout="@layout/fragment_new_credentials">
-        <!--    <action
-                android:id="@+id/action_newCredentialsFragment_to_loginFragment"
-                app:destination="@id/loginFragment"
-                app:launchSingleTop="true"
-                app:popUpTo="@id/newCredentialsFragment"
-                app:popUpToInclusive="true" />-->
+            <!--    <action
+                    android:id="@+id/action_newCredentialsFragment_to_loginFragment"
+                    app:destination="@id/loginFragment"
+                    app:launchSingleTop="true"
+                    app:popUpTo="@id/newCredentialsFragment"
+                    app:popUpToInclusive="true" />-->
         </fragment>
         <fragment
             android:id="@+id/signupFragment"
