@@ -1,21 +1,19 @@
-package com.example.bags.presentation.categories.women
+package com.example.bags.presentation.cart
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.bags.framework.BagsViewModel
 import com.example.bags.framework.Interactions
 import com.example.bags.framework.utilis.SingleLiveEvent
 import com.example.core.domain.Bag
-import com.example.core.domain.FavoriteOrder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CategoryWomenViewModel(application: Application, dependencies: Interactions):
+class CartViewModel(application: Application, dependencies: Interactions) :
     BagsViewModel(application, dependencies) {
-    private val _listOfCategoryWomen = SingleLiveEvent<List<Bag>>()
-    val listOfCategoryWomen: LiveData<List<Bag>> get() = _listOfCategoryWomen
+    private val _listOfCartItems = SingleLiveEvent<List<Bag>>()
+    val listOfCartItems: LiveData<List<Bag>> get() = _listOfCartItems
 
     private val _downloading = SingleLiveEvent<Boolean>()
     val downloading: LiveData<Boolean> get() = _downloading
@@ -23,34 +21,33 @@ class CategoryWomenViewModel(application: Application, dependencies: Interaction
     private val _cardClicked = SingleLiveEvent<Boolean>()
     val cardClicked: LiveData<Boolean> get() = _cardClicked
 
-    private val _bag = SingleLiveEvent<Bag?>()
-    val bag: LiveData<Bag?> get() = _bag
+    private val _cartBag = SingleLiveEvent<Bag?>()
+    val cartBag: LiveData<Bag?> get() = _cartBag
 
     private val _uploadTask = SingleLiveEvent<Boolean>()
     val uploadTask: LiveData<Boolean> get() = _uploadTask
 
-
-    fun downloadCategoryWomen(){
-        viewModelScope.launch(Dispatchers.IO){
+    fun downloadCartItems() {
+        viewModelScope.launch(Dispatchers.IO) {
             _downloading.postValue(true)
-            _listOfCategoryWomen.postValue(dependencies.downloadCategoryWomen())
+            _listOfCartItems.postValue(dependencies.downloadCardItems())
             _downloading.postValue(false)
         }
     }
-    fun buttonGoToDetailsClicked(){
+    fun buttonGoToCartDetailsClicked(){
         _cardClicked.value = true
     }
     fun addIdValue(bag: Bag?){
-        _bag.value = bag
+        _cartBag.value = bag
     }
-    fun uploadFavoriteItem(userId:String, bag: Bag){
+    fun removeItem(userId:String, bag: Bag){
         viewModelScope.launch(Dispatchers.IO){
-            _uploadTask.postValue(dependencies.uploadFavoriteItem(userId, bag))
+            _uploadTask.postValue(dependencies.removeCardItem(userId, bag))
         }
     }
     fun addItemToCartList(userId:String, bag: Bag){
         viewModelScope.launch(Dispatchers.IO){
-            dependencies.uploadCardItem(userId, bag)
+            _uploadTask.postValue(dependencies.uploadCardItem(userId, bag))
         }
 
     }

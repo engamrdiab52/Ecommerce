@@ -1,4 +1,4 @@
-package com.example.bags.presentation.categories.women
+package com.example.bags.presentation.cart
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,41 +7,46 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.bags.R
-import com.example.bags.databinding.FragmentWomenDetailsBinding
+import com.example.bags.databinding.FragmentCartDetailsFragmrntBinding
 import com.example.bags.framework.LoginFlowViewModelFactory
 import com.example.core.domain.Bag
 import com.google.firebase.auth.FirebaseAuth
 
-class WomenDetailsFragment : Fragment() {
-    private lateinit var binding: FragmentWomenDetailsBinding
-    private val viewModel: CategoryWomenViewModel by navGraphViewModels(R.id.nested_graph_women_bags) {
+class CartDetailsFragment : Fragment() {
+    private lateinit var binding: FragmentCartDetailsFragmrntBinding
+    private var favoriteBag: Bag? = null
+    private val viewModel: CartViewModel by navGraphViewModels(R.id.nested_graph_cart) {
         LoginFlowViewModelFactory
     }
-    private var bag: Bag? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_women_details, container, false)
-
-        viewModel.bag.observe(viewLifecycleOwner, {
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_cart_details_fragmrnt,
+            container,
+            false
+        )
+        viewModel.cartBag.observe(viewLifecycleOwner, {
             binding.bag = it
-            bag = it
+            favoriteBag = it
         })
-        binding.btnDetailsWomenAddToFavorite.setOnClickListener {
+        binding.btnDetailsCartDelete.setOnClickListener {
             val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
-            bag?.let { it1 ->
+            favoriteBag?.let { it1 ->
                 if (userId != null) {
-                    viewModel.uploadFavoriteItem(userId, it1)
+                    viewModel.removeItem(userId, it1)
                 }
             }
-
         }
         viewModel.uploadTask.observe(viewLifecycleOwner, {
             if (it) {
-                Toast.makeText(requireContext(), "added to favorite", Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -49,17 +54,7 @@ class WomenDetailsFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
         })
-        binding.btnDetailsWomenAddToCart.setOnClickListener {
-            val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
-            bag?.let { it1 ->
-                if (userId != null) {
-                    viewModel.addItemToCartList(userId, it1)
-                }
-            }
-        }
-
         // Inflate the layout for this fragment
         return binding.root
     }

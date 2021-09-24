@@ -1,24 +1,24 @@
-package com.example.bags.presentation.favorite
+package com.example.bags.presentation.cart
 
 import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.TypedEpoxyController
+import com.example.bags.cartCard
 import com.example.bags.favoriteCard
+import com.example.bags.presentation.favorite.FavoriteViewModel
 import com.example.core.domain.Bag
-import com.example.core.domain.FavoriteOrder
 
-class FavoriteListEpoxyController(private val viewModel: FavoriteViewModel) : TypedEpoxyController<List<Bag>>(
+class CartListEpoxyController(private val viewModel: CartViewModel) : TypedEpoxyController<List<Bag>>(
     EpoxyAsyncUtil.getAsyncBackgroundHandler(),
     EpoxyAsyncUtil.getAsyncBackgroundHandler()
 ) {
     override fun buildModels(data: List<Bag>?) {
         data?.forEachIndexed { index, bag ->
-            favoriteCard {
+            cartCard {
                 id(index)
                 bag(bag)
                 onClickContent { _ ->
-                    this@FavoriteListEpoxyController.viewModel.buttonGoToFavoritesDetailsClicked()
-                    this@FavoriteListEpoxyController.viewModel.addIdValue(bag)
-
+                   this@CartListEpoxyController.viewModel.buttonGoToCartDetailsClicked()
+                    this@CartListEpoxyController.viewModel.addIdValue(bag)
                 }
 
             }

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.bags.R
@@ -17,10 +18,12 @@ import com.example.bags.presentation.categories.women.CategoryWomenViewModel
 import com.example.core.domain.Bag
 import com.example.core.domain.FavoriteOrder
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class FavoritesDetailsFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesDetailsBinding
-    private var favoriteBag: FavoriteOrder? = null
+    private var favoriteBag: Bag? = null
     private val viewModel: FavoriteViewModel by navGraphViewModels(R.id.nested_graph_favorites) {
         LoginFlowViewModelFactory
     }
@@ -33,21 +36,22 @@ class FavoritesDetailsFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_favorites_details, container, false)
         viewModel.favoriteBag.observe(viewLifecycleOwner, {
-            binding.favoriteBag = it
+            binding.bag = it
             favoriteBag = it
         })
         binding.btnDetailsFavoritesDelete.setOnClickListener {
             val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
             favoriteBag?.let { it1 ->
-                val bag = Bag(
-                    it1.id_product,
-                    it1.name_product,
-                    it1.url_product,
-                    it1.price_product,
-                    it1.description_product
-                )
                 if (userId != null) {
-                    viewModel.removeItem(userId, bag)
+                    viewModel.removeItem(userId, it1)
+                }
+            }
+        }
+        binding.btnDetailsFavoritesAddToCart.setOnClickListener {
+            val userId: String? = FirebaseAuth.getInstance().currentUser?.uid
+            favoriteBag?.let { it1 ->
+                if (userId != null) {
+                    viewModel.addItemToCartList(userId, it1)
                 }
             }
         }

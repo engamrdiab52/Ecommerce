@@ -79,6 +79,27 @@ class BagsApplication : Application() {
                             databaseReference
                         )
                     )
+                ),
+                DownloadCardItems(
+                    RepositoryDownloadCardItems(
+                        DownloadCardItemsImpl(
+                            databaseReference
+                        )
+                    )
+                ),
+                UploadCardItem(
+                    RepositoryUploadCardItem(
+                        UploadCardItemImpl(
+                            databaseReference
+                        )
+                    )
+                ),
+                RemoveCardItem(
+                    RepositoryRemoveCardItem(
+                        RemoveCardItemImpl(
+                            databaseReference
+                        )
+                    )
                 )
             )
         )

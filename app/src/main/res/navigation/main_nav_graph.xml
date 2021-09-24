@@ -121,11 +121,6 @@
         </fragment>
     </navigation>
     <fragment
-        android:id="@+id/cartFragment"
-        android:name="com.example.bags.presentation.cart.CartFragment"
-        android:label="Cart"
-        tools:layout="@layout/fragment_cart" />
-    <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.bags.presentation.search.SearchFragment"
         android:label="Search"
@@ -147,12 +142,32 @@
                 android:id="@+id/action_favoriteFragment_to_favoritesDetailsFragment2"
                 app:destination="@id/favoritesDetailsFragment"
                 app:launchSingleTop="true"
-                app:popUpTo="@id/favoriteFragment"/>
+                app:popUpTo="@id/favoriteFragment" />
         </fragment>
         <fragment
             android:id="@+id/favoritesDetailsFragment"
             android:name="com.example.bags.presentation.favorite.FavoritesDetailsFragment"
             android:label="FavoritesDetailsFragment"
             tools:layout="@layout/fragment_favorites_details" />
+    </navigation>
+    <navigation
+        android:id="@+id/nested_graph_cart"
+        app:startDestination="@id/cartFragment">
+        <fragment
+            android:id="@+id/cartFragment"
+            android:name="com.example.bags.presentation.cart.CartFragment"
+            android:label="Cart"
+            tools:layout="@layout/fragment_cart" >
+            <action
+                android:id="@+id/action_cartFragment_to_cartDetailsFragment"
+                app:destination="@id/cartDetailsFragment"
+                app:launchSingleTop="true"
+                app:popUpTo="@id/cartFragment"/>
+        </fragment>
+        <fragment
+            android:id="@+id/cartDetailsFragment"
+            android:name="com.example.bags.presentation.cart.CartDetailsFragment"
+            android:label="CartDetailsFragment"
+            tools:layout="@layout/fragment_cart_details_fragmrnt" />
     </navigation>
 </navigation>

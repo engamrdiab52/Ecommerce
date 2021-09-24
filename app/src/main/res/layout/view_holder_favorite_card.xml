@@ -8,8 +8,8 @@
             name="onClickContent"
             type="android.view.View.OnClickListener" />
             <variable
-                name="favoriteOrder"
-                type="com.example.core.domain.FavoriteOrder" />
+                name="bag"
+                type="com.example.core.domain.Bag" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -36,7 +36,7 @@
                 android:layout_height="194dp"
                 android:contentDescription="@string/bag"
                 android:scaleType="fitCenter"
-                app:imageUrl="@{favoriteOrder.url_product}"
+                app:imageUrl="@{bag.url_product}"
                 tools:srcCompat="@mipmap/bag_1" />
 
             <LinearLayout
@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="@{favoriteOrder.name_product}"
+                    android:text="@{bag.name_product}"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <TextView
@@ -61,7 +61,7 @@
                     android:layout_marginTop="8dp"
                     android:lines="3"
                     android:maxLines="3"
-                    android:text="@{favoriteOrder.description_product}"
+                    android:text="@{bag.description_product}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
 
@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{favoriteOrder.price_product}"
+                    android:text="@{bag.price_product}"
                     android:textAppearance="?attr/textAppearanceHeadline5" />
             </LinearLayout>
         </LinearLayout>

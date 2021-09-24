@@ -14,5 +14,8 @@ data class Interactions(
     val downloadCategoryWomen: DownloadCategoryWomen,
     val downloadCategories: DownloadCategories,
     val uploadFavoriteItem: UploadFavoriteItem,
-    val removeFavoriteItem: RemoveFavoriteItem
+    val removeFavoriteItem: RemoveFavoriteItem,
+    val downloadCardItems: DownloadCardItems,
+    val uploadCardItem: UploadCardItem,
+    val removeCardItem: RemoveCardItem
 )

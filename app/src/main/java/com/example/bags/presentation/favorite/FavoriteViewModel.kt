@@ -17,8 +17,8 @@ import kotlinx.coroutines.launch
 
 class FavoriteViewModel(application: Application, dependencies: Interactions) :
     BagsViewModel(application, dependencies) {
-    private val _listOfFavorites = SingleLiveEvent<List<FavoriteOrder>>()
-    val listOfFavorites: LiveData<List<FavoriteOrder>> get() = _listOfFavorites
+    private val _listOfFavorites = SingleLiveEvent<List<Bag>>()
+    val listOfFavorites: LiveData<List<Bag>> get() = _listOfFavorites
 
     private val _downloading = SingleLiveEvent<Boolean>()
     val downloading: LiveData<Boolean> get() = _downloading
@@ -26,8 +26,8 @@ class FavoriteViewModel(application: Application, dependencies: Interactions) :
     private val _cardClicked = SingleLiveEvent<Boolean>()
     val cardClicked: LiveData<Boolean> get() = _cardClicked
 
-    private val _favoriteBag = SingleLiveEvent<FavoriteOrder?>()
-    val favoriteBag: LiveData<FavoriteOrder?> get() = _favoriteBag
+    private val _favoriteBag = SingleLiveEvent<Bag?>()
+    val favoriteBag: LiveData<Bag?> get() = _favoriteBag
 
     private val _uploadTask = SingleLiveEvent<Boolean>()
     val uploadTask: LiveData<Boolean> get() = _uploadTask
@@ -42,13 +42,19 @@ class FavoriteViewModel(application: Application, dependencies: Interactions) :
     fun buttonGoToFavoritesDetailsClicked(){
         _cardClicked.value = true
     }
-    fun addIdValue(favoriteBag: FavoriteOrder?){
-        _favoriteBag.value = favoriteBag
+    fun addIdValue(bag: Bag?){
+        _favoriteBag.value = bag
     }
 
     fun removeItem(userId:String, bag: Bag){
         viewModelScope.launch(Dispatchers.IO){
             _uploadTask.postValue(dependencies.removeFavoriteItem(userId, bag))
         }
+    }
+    fun addItemToCartList(userId:String, bag: Bag){
+        viewModelScope.launch(Dispatchers.IO){
+            dependencies.uploadCardItem(userId, bag)
+        }
+
     }
 }
