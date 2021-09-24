@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.bags.MainActivity
+import com.example.bags.MainActivity.Companion.TAG
 import com.example.bags.R
 import com.example.bags.databinding.FragmentHomeBinding
 import com.example.bags.framework.LoginFlowViewModelFactory
@@ -26,7 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: EpoxyRecyclerView
 
     private val categoriesEpoxyController by lazy {
-        CategoriesEpoxyController()
+        CategoriesEpoxyController(viewModel)
     }
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this, LoginFlowViewModelFactory)[HomeViewModel::class.java]
@@ -54,10 +56,14 @@ class HomeFragment : Fragment() {
 
         viewModel.listOfCategories.observe(viewLifecycleOwner, {
             categoriesEpoxyController.setData(it)
-            Log.d(MainActivity.TAG, it.toString())
+            Log.d(TAG, it.toString())
+        })
+        viewModel.womenCategoryClicked.observe(viewLifecycleOwner, Observer{
+            Log.d(TAG, "CARD clicked.........")
+            findNavController().navigate(R.id.action_homeFragment_to_categoryWomenFragment)
         })
         viewModel.cardClicked.observe(viewLifecycleOwner, Observer{
-            findNavController().navigate(R.id.action_homeFragment_to_categoryWomenFragment)
+            Toast.makeText(requireContext(),"NOT implemented yet", Toast.LENGTH_SHORT ).show()
         })
         viewModel.downloadCategories()
         return binding.root

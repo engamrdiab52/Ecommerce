@@ -23,12 +23,18 @@ class HomeViewModel(application: Application, dependencies: Interactions):
     private val _cardClicked = SingleLiveEvent<Boolean>()
     val cardClicked: LiveData<Boolean> get() = _cardClicked
 
+    private val _womenCategoryClicked = SingleLiveEvent<Boolean>()
+    val womenCategoryClicked: LiveData<Boolean> get() = _womenCategoryClicked
+
     fun downloadCategories(){
         viewModelScope.launch(Dispatchers.IO){
             _downloading.postValue(true)
             _listOfCategories.postValue(dependencies.downloadCategories())
             _downloading.postValue(false)
         }
+    }
+    fun buttonWomenCategoryClicked(){
+        _womenCategoryClicked.value = true
     }
     fun buttonClicked(){
         _cardClicked.value = true
