@@ -1,10 +1,12 @@
 package com.example.bags.presentation.favorite
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bags.MainActivity
 import com.example.bags.framework.BagsViewModel
 import com.example.bags.framework.Interactions
 import com.example.bags.framework.LoginFlowViewModelFactory.application
@@ -55,6 +57,19 @@ class FavoriteViewModel(application: Application, dependencies: Interactions) :
         viewModelScope.launch(Dispatchers.IO){
             dependencies.uploadCardItem(userId, bag)
         }
-
+    }
+    fun search(query :String?, tempList : List<Bag>){
+        viewModelScope.launch(Dispatchers.IO){
+            //  val listOfTempBags = listOfCategoryWomen.value
+            val filteredList = tempList.filter {
+                query?.let { it1 ->
+                    it.name_product?.contains(
+                        it1, true
+                    )
+                }!!
+            }
+            _listOfFavorites.postValue(filteredList)
+            Log.d(MainActivity.TAG, filteredList.toString())
+        }
     }
 }

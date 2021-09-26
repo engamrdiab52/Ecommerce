@@ -28,7 +28,7 @@
     <string name="settings">settings</string>
     <string name="logout">Logout</string>
     <string name="delete_account">Delete Account</string>
-    <string name="do_you_raelly_want_to_elete_account">Do you raelly want to elete account ?</string>
+    <string name="do_you_raelly_want_to_elete_account">Do you really want to delete account ?</string>
     <string name="bag">bag</string>
     <string name="textview">TextView</string>
     <string name="description_for_bag_style_and_category">description for bag style and category</string>
@@ -39,6 +39,7 @@
     <string name="add_to_cart">Add to cart</string>
     <string name="add_to_favorite">Add TO FAVORITE</string>
     <string name="add_to_card">ADD TO CARD</string>
+    <string name="no_results">NO RESULTS</string>
 
 
 </resources>

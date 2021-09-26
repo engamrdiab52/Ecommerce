@@ -1,9 +1,11 @@
 package com.example.bags.presentation.categories.women
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.bags.MainActivity
 import com.example.bags.framework.BagsViewModel
 import com.example.bags.framework.Interactions
 import com.example.bags.framework.utilis.SingleLiveEvent
@@ -29,6 +31,8 @@ class CategoryWomenViewModel(application: Application, dependencies: Interaction
     private val _uploadTask = SingleLiveEvent<Boolean>()
     val uploadTask: LiveData<Boolean> get() = _uploadTask
 
+    val tempList: List<Bag>? = listOfCategoryWomen.value
+
 
     fun downloadCategoryWomen(){
         viewModelScope.launch(Dispatchers.IO){
@@ -52,6 +56,19 @@ class CategoryWomenViewModel(application: Application, dependencies: Interaction
         viewModelScope.launch(Dispatchers.IO){
             dependencies.uploadCardItem(userId, bag)
         }
-
+    }
+    fun search(query :String?, tempList : List<Bag>){
+        viewModelScope.launch(Dispatchers.IO){
+          //  val listOfTempBags = listOfCategoryWomen.value
+            val filteredList = tempList.filter {
+                query?.let { it1 ->
+                    it.name_product?.contains(
+                        it1, true
+                    )
+                }!!
+            }
+            _listOfCategoryWomen.postValue(filteredList)
+            Log.d(MainActivity.TAG, filteredList.toString())
+        }
     }
 }
