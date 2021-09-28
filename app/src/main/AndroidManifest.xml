@@ -7,9 +7,9 @@
     <application
         android:allowBackup="true"
         android:name=".framework.BagsApplication"
-        android:icon="@mipmap/ic_launcher_bags"
+        android:icon="@mipmap/ic_launcher_bags_brown"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_bags_round"
+        android:roundIcon="@mipmap/ic_launcher_bags_brown_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bags">
         <activity
