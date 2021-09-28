@@ -4,10 +4,10 @@
         android:id="@+id/nested_graph_home"
         android:icon="@drawable/ic_outline_home"
         android:title="@string/home" />
-    <item
+   <!-- <item
         android:id="@+id/searchFragment"
         android:icon="@drawable/ic_search"
-        android:title="@string/search" />
+        android:title="@string/search" />-->
     <item
         android:id="@+id/nested_graph_favorites"
         android:title="@string/favorite"

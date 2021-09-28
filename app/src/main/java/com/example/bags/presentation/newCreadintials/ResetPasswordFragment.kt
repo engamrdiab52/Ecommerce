@@ -42,7 +42,6 @@ class ResetPasswordFragment : Fragment() {
             if (it == true) {
                 Toast.makeText(requireContext(), "Email sent successfully", Toast.LENGTH_SHORT)
                     .show()
-                Log.d(TAG, "66666666" + it.toString())
                 findNavController().navigate(R.id.action_resetPasswordFragment_to_loginFragment)
             } else {
                 if (checkInternetConnection(requireContext())) {

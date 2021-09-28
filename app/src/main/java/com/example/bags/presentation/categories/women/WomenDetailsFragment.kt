@@ -59,7 +59,6 @@ class WomenDetailsFragment : Fragment() {
                 }
             }
         }
-
         // Inflate the layout for this fragment
         return binding.root
     }

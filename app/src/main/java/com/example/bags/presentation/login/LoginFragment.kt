@@ -81,8 +81,6 @@ class LoginFragment : Fragment() {
                 val password = binding.editTextLoginPassword.text.toString()
                 if (checkInternetConnection(requireContext())) {
                     viewModel.signIn(email, password)
-                    Toast.makeText(requireContext(), "$email + $password", Toast.LENGTH_SHORT)
-                        .show()
                 } else {
                     Toast.makeText(
                         requireContext(),

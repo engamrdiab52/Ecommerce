@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), myDrawerController {
     private lateinit var navigationView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
-    private lateinit var fab: FloatingActionButton
+  //  private lateinit var fab: FloatingActionButton
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var preferenceHelper: IPreferenceHelper
 
@@ -55,14 +55,14 @@ class MainActivity : AppCompatActivity(), myDrawerController {
         drawerLayout = binding.drawerLayout
         navigationView = binding.navigationView
         toolbar = binding.appBarMain.toolbar
-        fab = binding.appBarMain.floatingActionButton
+        //fab = binding.appBarMain.floatingActionButton
         bottomNavigationView = binding.appBarMain.contentMain.bottomNavigationView
         setSupportActionBar(toolbar)
-        fab.setOnClickListener {
+       /* fab.setOnClickListener {
             Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
 
-        }
+        }*/
         bottomNavigationView.setupWithNavController(navController)
         navigationView.setupWithNavController(navController)
         // if (it.itemId== R.id.deleteUser)FirebaseAuth.getInstance().currentUser.delete()
@@ -133,14 +133,14 @@ class MainActivity : AppCompatActivity(), myDrawerController {
     override fun setDrawerLocked() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         toolbar.visibility = View.GONE
-        fab.visibility = View.GONE
+      //  fab.visibility = View.GONE
         bottomNavigationView.visibility = View.GONE
     }
 
     override fun setDrawerUnlocked() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         toolbar.visibility = View.VISIBLE
-        fab.visibility = View.VISIBLE
+      //  fab.visibility = View.VISIBLE
         bottomNavigationView.visibility = View.VISIBLE
     }
 
