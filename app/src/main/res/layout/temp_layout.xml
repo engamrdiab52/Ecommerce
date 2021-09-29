@@ -6,7 +6,7 @@
     <data>
         <variable
             name="favoriteOrder"
-            type="com.example.core.domain.FavoriteOrder" />
+            type="com.amrabdelhamiddiab.core.domain.FavoriteOrder" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

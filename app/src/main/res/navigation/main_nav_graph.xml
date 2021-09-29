@@ -10,7 +10,7 @@
         app:startDestination="@id/homeFragment">
         <fragment
             android:id="@+id/homeFragment"
-            android:name="com.example.bags.presentation.home.HomeFragment"
+            android:name="com.amrabdelhamiddiab.bags.presentation.home.HomeFragment"
             android:label="Home"
             tools:layout="@layout/fragment_home">
             <action
@@ -33,7 +33,7 @@
             app:startDestination="@id/categoryWomenFragment">
             <fragment
                 android:id="@+id/categoryWomenFragment"
-                android:name="com.example.bags.presentation.categories.women.CategoryWomenFragment"
+                android:name="com.amrabdelhamiddiab.bags.presentation.categories.women.CategoryWomenFragment"
                 android:label="Women’s Bags"
                 tools:layout="@layout/fragment_category_women">
                 <action
@@ -44,7 +44,7 @@
             </fragment>
             <fragment
                 android:id="@+id/detailsFragment"
-                android:name="com.example.bags.presentation.categories.women.WomenDetailsFragment"
+                android:name="com.amrabdelhamiddiab.bags.presentation.categories.women.WomenDetailsFragment"
                 android:label="Details"
                 tools:layout="@layout/fragment_women_details">
 
@@ -58,7 +58,7 @@
 
         <fragment
             android:id="@+id/loginFragment"
-            android:name="com.example.bags.presentation.login.LoginFragment"
+            android:name="com.amrabdelhamiddiab.bags.presentation.login.LoginFragment"
             android:label="Login"
             tools:layout="@layout/fragment_login">
             <!--  <action
@@ -79,7 +79,7 @@
         </fragment>
         <fragment
             android:id="@+id/newCredentialsFragment"
-            android:name="com.example.bags.presentation.newCreadintials.NewCredentialsFragment"
+            android:name="com.amrabdelhamiddiab.bags.presentation.newCreadintials.NewCredentialsFragment"
             android:label="NewCredentials"
             tools:layout="@layout/fragment_new_credentials">
             <!--    <action
@@ -91,7 +91,7 @@
         </fragment>
         <fragment
             android:id="@+id/signupFragment"
-            android:name="com.example.bags.presentation.signup.SignupFragment"
+            android:name="com.amrabdelhamiddiab.bags.presentation.signup.SignupFragment"
             android:label="Signup"
             tools:layout="@layout/fragment_signup">
             <action
@@ -109,7 +109,7 @@
             app:popUpToInclusive="true" />
         <fragment
             android:id="@+id/resetPasswordFragment"
-            android:name="com.example.bags.presentation.newCreadintials.ResetPasswordFragment"
+            android:name="com.amrabdelhamiddiab.bags.presentation.newCreadintials.ResetPasswordFragment"
             android:label="ResetPasswordFragment"
             tools:layout="@layout/fragment_reset_password">
             <action
@@ -122,12 +122,12 @@
     </navigation>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.bags.presentation.search.SearchFragment"
+        android:name="com.amrabdelhamiddiab.bags.presentation.search.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/deleteAccount"
-        android:name="com.example.bags.presentation.deleteAccount.DeleteAccount"
+        android:name="com.amrabdelhamiddiab.bags.presentation.deleteAccount.DeleteAccount"
         android:label="fragment_delete_account"
         tools:layout="@layout/fragment_delete_account" />
     <navigation
@@ -135,7 +135,7 @@
         app:startDestination="@id/favoriteFragment">
         <fragment
             android:id="@+id/favoriteFragment"
-            android:name="com.example.bags.presentation.favorite.FavoriteFragment"
+            android:name="com.amrabdelhamiddiab.bags.presentation.favorite.FavoriteFragment"
             android:label="Favorites"
             tools:layout="@layout/fragment_favorite">
             <action
@@ -146,7 +146,7 @@
         </fragment>
         <fragment
             android:id="@+id/favoritesDetailsFragment"
-            android:name="com.example.bags.presentation.favorite.FavoritesDetailsFragment"
+            android:name="com.amrabdelhamiddiab.bags.presentation.favorite.FavoritesDetailsFragment"
             android:label="FavoritesDetailsFragment"
             tools:layout="@layout/fragment_favorites_details" />
     </navigation>
@@ -155,7 +155,7 @@
         app:startDestination="@id/cartFragment">
         <fragment
             android:id="@+id/cartFragment"
-            android:name="com.example.bags.presentation.cart.CartFragment"
+            android:name="com.amrabdelhamiddiab.bags.presentation.cart.CartFragment"
             android:label="Cart"
             tools:layout="@layout/fragment_cart" >
             <action
@@ -166,7 +166,7 @@
         </fragment>
         <fragment
             android:id="@+id/cartDetailsFragment"
-            android:name="com.example.bags.presentation.cart.CartDetailsFragment"
+            android:name="com.amrabdelhamiddiab.bags.presentation.cart.CartDetailsFragment"
             android:label="CartDetailsFragment"
             tools:layout="@layout/fragment_cart_details_fragmrnt" />
     </navigation>

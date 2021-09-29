@@ -36,10 +36,15 @@
     <string name="go_to_category_women">GO to category women</string>
     <string name="add_to_favorites">ADD TO FAVORITES</string>
     <string name="delete">DELETE</string>
-    <string name="add_to_cart">Add to cart</string>
     <string name="add_to_favorite">Add TO FAVORITE</string>
-    <string name="add_to_card">ADD TO CARD</string>
+    <string name="add_to_cart">ADD TO CART</string>
     <string name="no_results">NO RESULTS</string>
+    <string name="title">Title</string>
+    <string name="login">LOGIN</string>
+    <string name="forget_password">Forget Password ?</string>
+    <string name="new_credentials">NEW CREDENTIALS</string>
+    <string name="to_home">TO HOME</string>
+    <string name="send_verification_email">Send verification email</string>
 
 
 </resources>

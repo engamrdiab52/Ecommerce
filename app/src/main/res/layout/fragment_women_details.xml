@@ -7,7 +7,7 @@
 
         <variable
             name="bag"
-            type="com.example.core.domain.Bag" />
+            type="com.amrabdelhamiddiab.core.domain.Bag" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,8 +32,7 @@
                 android:layout_height="270dp"
                 android:contentDescription="@string/bag"
                 android:scaleType="fitCenter"
-                app:imageUrl="@{bag.url_product}"
-                tools:srcCompat="@mipmap/bag_1" />
+                app:imageUrl="@{bag.url_product}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:text="ADD TO CART" />
+                    android:text="@string/add_to_cart" />
             </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
